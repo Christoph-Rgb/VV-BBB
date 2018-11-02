@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Ticket_1 = require("./Ticket");
+var ticket1 = new Ticket_1.Ticket("Ticket1", 1);
+console.log(ticket1.id);
+var ticket2 = Ticket_1.Ticket.fromJSON('{"id":"Ticket2", "seat":2, "boarded":true}');
+console.log(ticket2.id);
+var ticket3 = new Ticket_1.Ticket("Ticket3", 3);
+var json = ticket3.toJSON();
+console.log(json);
+var ticket3Clone = Ticket_1.Ticket.fromJSON(json);
+console.log(ticket3Clone.id + "Clone");
