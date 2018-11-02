@@ -1,0 +1,4 @@
+{
+    "scripts": {
+        "start": "tsc && node ./app/BBB.js"}
+}
