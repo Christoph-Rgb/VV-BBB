@@ -1,6 +1,61 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Route_1 = require("./Route");
+var IBBBCommand_1 = require("./IBBBCommand");
+var filePath = './.bbb_data';
+var BBB = /** @class */ (function () {
+    function BBB() {
+        var _this = this;
+        this.saveRoutes = function () {
+            var routeObjects = _this._routes.map(function (r) { return r.toObject(); });
+            var json = JSON.stringify(routeObjects);
+            //TODO: save json to filePath
+        };
+        this.loadRoutes = function () {
+            _this._routes = new Array();
+            //TODO: load routesObjects
+        };
+        this._commands = new Array();
+        this._commands.push(new IBBBCommand_1.RegisterRouteCommand('registerroute', this));
+        this.loadRoutes();
+        this.parseCommand();
+        this.saveRoutes();
+    }
+    Object.defineProperty(BBB.prototype, "routes", {
+        get: function () {
+            return this._routes;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    BBB.prototype.parseCommand = function () {
+        //TODO: why does it not get arguments???
+        // if (arguments.length === 0) {
+        //     console.log('No argument was given')
+        //     return
+        // }
+        var args = new Array();
+        for (var i = 0; i < arguments.length; i++) {
+            args.push(arguments[0]);
+        }
+        args.push('registerroute');
+        args.push('R1');
+        args.push('Madrid');
+        args.push('Valencia');
+        args.push(50);
+        var commandId = args.shift();
+        var commandIndex = this._commands.map(function (c) { return c.commandId; }).indexOf(commandId);
+        if (commandIndex === -1) {
+            console.log("Command " + commandId + " does not exist");
+            return;
+        }
+        var command = this._commands[commandIndex];
+        command.execute(args);
+        console.log('test');
+    };
+    return BBB;
+}());
+exports.BBB = BBB;
+var bbb = new BBB();
 // const ticket1 = new Ticket("Ticket1", 1)
 // console.log(ticket1.id)
 // const ticket2 = Ticket.fromJSON('{"id":"Ticket2", "seat":2, "boarded":true}')
@@ -10,19 +65,19 @@ var Route_1 = require("./Route");
 // console.log(json)
 // const ticket3Clone = Ticket.fromJSON(json)
 // console.log(ticket3Clone.id + "Clone")
-var route1 = new Route_1.Route('R1', 'Madrid', 'Valencia', 50);
-var ticket = route1.purchaseTicket().ticket;
-var ticket2 = route1.purchaseTicket().ticket;
-var ticket3 = route1.purchaseTicket().ticket;
-var result1 = route1.boardTicket(ticket2.id);
-var result2 = route1.boardTicket('ticket2.id');
-var result3 = route1.cancelTicket(ticket2.id);
-var result4 = route1.cancelTicket('asldfkj');
-var departed = route1.depart();
-var hasArrived = route1.hasArrived();
-var routeObject = route1.toObject();
-var routeJSON = JSON.stringify(routeObject);
-var recoveredRotueObject = JSON.parse(routeJSON);
-var route1Clone = Route_1.Route.fromObject(recoveredRotueObject);
-console.log("");
+// let route1 = new Route('R1', 'Madrid', 'Valencia', 50)
+// const ticket = route1.purchaseTicket().ticket
+// const ticket2 = route1.purchaseTicket().ticket
+// const ticket3 = route1.purchaseTicket().ticket
+// let result1 = route1.boardTicket(ticket2.id)
+// let result2 = route1.boardTicket('ticket2.id')
+// let result3 = route1.cancelTicket(ticket2.id)
+// let result4 = route1.cancelTicket('asldfkj')
+// const departed = route1.depart()
+// const hasArrived = route1.hasArrived()
+// const routeObject = route1.toObject()
+// const routeJSON = JSON.stringify(routeObject)
+// const recoveredRotueObject = JSON.parse(routeJSON)
+// const route1Clone = Route.fromObject(recoveredRotueObject)
+// console.log("")
 //# sourceMappingURL=BBB.js.map
