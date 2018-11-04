@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
       "target": "es5",
-      "outDir": "./app"
+      "outDir": "./app",
+      "sourceMap": true
     },
     "include": [
       "./src/*.ts"

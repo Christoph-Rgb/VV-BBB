@@ -1,4 +1,8 @@
 {
     "scripts": {
-        "start": "tsc && node ./app/BBB.js"}
+        "start": "tsc && node ./app/BBB.js"
+    },
+    "dependencies": {
+        "moment": "2.22.2"
+    }
 }
