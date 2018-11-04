@@ -29,5 +29,11 @@ let result4 = route1.cancelTicket('asldfkj')
 const departed = route1.depart()
 const hasArrived = route1.hasArrived()
 
+const routeObject = route1.toObject()
+const routeJSON = JSON.stringify(routeObject)
+
+const recoveredRotueObject = JSON.parse(routeJSON)
+const route1Clone = Route.fromObject(recoveredRotueObject)
+
 console.log("")
 

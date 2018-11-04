@@ -19,7 +19,10 @@ var result2 = route1.boardTicket('ticket2.id');
 var result3 = route1.cancelTicket(ticket2.id);
 var result4 = route1.cancelTicket('asldfkj');
 var departed = route1.depart();
-//setTimeout(() => {}, 15000)
 var hasArrived = route1.hasArrived();
+var routeObject = route1.toObject();
+var routeJSON = JSON.stringify(routeObject);
+var recoveredRotueObject = JSON.parse(routeJSON);
+var route1Clone = Route_1.Route.fromObject(recoveredRotueObject);
 console.log("");
 //# sourceMappingURL=BBB.js.map

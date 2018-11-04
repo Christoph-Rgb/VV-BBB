@@ -35,9 +35,7 @@ export class Ticket {
         this._boarded = boarded
     }
 
-    static fromJSON = json => {
-        const object = JSON.parse(json)
-
+    static fromObject = (object) => {
         if (!object.hasOwnProperty('id') ||
             !object.hasOwnProperty('seat') ||
             !object.hasOwnProperty('boarded')) {
@@ -50,12 +48,12 @@ export class Ticket {
         return ticket
     }
 
-    toJSON = () => {
-        return JSON.stringify({
+    toObject = () => {
+        return {
             id: this._id,
             seat: this._seat,
             boarded: this._boarded
-        })
+        }
     }
 
 }

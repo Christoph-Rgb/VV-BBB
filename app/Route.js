@@ -13,7 +13,7 @@ var Route = /** @class */ (function () {
             }
         };
         this.purchaseTicket = function () {
-            if (_this._availableSeats.length == 0) {
+            if (_this._availableSeats.length === 0) {
                 return {
                     success: false,
                     reason: 'No tickets available'
@@ -57,6 +57,12 @@ var Route = /** @class */ (function () {
                 };
             }
             var ticket = _this._tickets[ticketIndex];
+            if (ticket.boarded === true) {
+                return {
+                    success: false,
+                    reason: 'Ticket is already boarded'
+                };
+            }
             var seat = ticket.seat;
             _this._tickets = _this._tickets.filter(function (t) { return t.id !== ticketId; });
             _this._availableSeats.push(seat);
@@ -83,6 +89,22 @@ var Route = /** @class */ (function () {
             _this._departed = null;
             _this.initializeSeats();
             return true;
+        };
+        this.toObject = function () {
+            var departedString = null;
+            if (_this._departed !== null) {
+                departedString = _this._departed.toISOString();
+            }
+            var ticketObjects = _this._tickets.map(function (t) { return t.toObject(); });
+            return {
+                id: _this._id,
+                source: _this._source,
+                destination: _this._destination,
+                capacity: _this._capacity,
+                availableSeats: _this._availableSeats,
+                tickets: ticketObjects,
+                departed: departedString
+            };
         };
         if (!id || id.trim().length === 0) {
             throw new Error('Invalid id');
@@ -141,14 +163,14 @@ var Route = /** @class */ (function () {
     });
     Object.defineProperty(Route.prototype, "status", {
         get: function () {
-            if (!this._departed == null) {
+            if (this._departed !== null) {
                 return RouteStatus_1.RouteStatus.travelling;
             }
             else {
-                if (this._availableSeats.length == this.capacity) {
+                if (this._availableSeats.length === this.capacity) {
                     return RouteStatus_1.RouteStatus.empty;
                 }
-                else if (this._availableSeats.length == 0) {
+                else if (this._availableSeats.length === 0) {
                     return RouteStatus_1.RouteStatus.full;
                 }
                 else {
@@ -159,6 +181,33 @@ var Route = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Route.fromObject = function (object) {
+        if (!object.hasOwnProperty('id') ||
+            !object.hasOwnProperty('source') ||
+            !object.hasOwnProperty('destination') ||
+            !object.hasOwnProperty('capacity') ||
+            !object.hasOwnProperty('departed') ||
+            !object.hasOwnProperty('availableSeats') ||
+            !object.hasOwnProperty('tickets')) {
+            throw new Error('Invalid object');
+        }
+        var route = new Route(object.id, object.source, object.destination, object.capacity);
+        if (object.departed === null) {
+            route._departed = null;
+        }
+        else {
+            route._departed = moment(object.departed);
+            if (!route._departed.isValid()) {
+                throw new Error('Invalid departed time');
+            }
+        }
+        route._availableSeats = object.availableSeats;
+        for (var i in object.tickets) {
+            var ticket = Ticket_1.Ticket.fromObject(object.tickets[i]);
+            route._tickets.push(ticket);
+        }
+        return route;
+    };
     return Route;
 }());
 exports.Route = Route;

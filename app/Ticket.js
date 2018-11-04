@@ -3,12 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Ticket = /** @class */ (function () {
     function Ticket(id, seat) {
         var _this = this;
-        this.toJSON = function () {
-            return JSON.stringify({
+        this.toObject = function () {
+            return {
                 id: _this._id,
                 seat: _this._seat,
                 boarded: _this._boarded
-            });
+            };
         };
         if (!id || id.trim().length === 0) {
             throw new Error('Invalid id');
@@ -44,8 +44,7 @@ var Ticket = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Ticket.fromJSON = function (json) {
-        var object = JSON.parse(json);
+    Ticket.fromObject = function (object) {
         if (!object.hasOwnProperty('id') ||
             !object.hasOwnProperty('seat') ||
             !object.hasOwnProperty('boarded')) {

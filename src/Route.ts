@@ -60,12 +60,12 @@ export class Route {
     }
 
     get status(): RouteStatus {
-        if (!this._departed == null) {
+        if (this._departed !== null) {
             return RouteStatus.travelling
         } else {
-            if (this._availableSeats.length == this.capacity) {
+            if (this._availableSeats.length === this.capacity) {
                 return RouteStatus.empty
-            } else if (this._availableSeats.length == 0) {
+            } else if (this._availableSeats.length === 0) {
                 return RouteStatus.full
             } else {
                 return RouteStatus.available
@@ -82,7 +82,7 @@ export class Route {
 
     purchaseTicket = () => {
      
-        if (this._availableSeats.length == 0) {
+        if (this._availableSeats.length === 0) {
             return {
                 success: false,
                 reason: 'No tickets available'
@@ -178,5 +178,59 @@ export class Route {
         this.initializeSeats()
 
         return true
+    }
+
+    static fromObject = (object) => {
+
+        if (!object.hasOwnProperty('id') ||
+            !object.hasOwnProperty('source') ||
+            !object.hasOwnProperty('destination') ||
+            !object.hasOwnProperty('capacity') ||
+            !object.hasOwnProperty('departed') ||
+            !object.hasOwnProperty('availableSeats') ||
+            !object.hasOwnProperty('tickets')) {
+            throw new Error ('Invalid object')
+        }
+
+        const route = new Route(object.id, object.source, object.destination, object.capacity)
+
+        if (object.departed === null) {
+            route._departed = null
+        } else {
+            route._departed = moment(object.departed)
+            if (!route._departed.isValid()) {
+                throw new Error ('Invalid departed time')
+            }
+        }
+
+        route._availableSeats = object.availableSeats
+        
+        for (const i in object.tickets) {
+            const ticket = Ticket.fromObject(object.tickets[i])
+            route._tickets.push(ticket)
+        }
+
+        return route
+    }
+
+    toObject = () => {
+        
+        let departedString = null
+        if (this._departed !== null) {
+            departedString = this._departed.toISOString()
+        }
+        
+        const ticketObjects = this._tickets.map((t) => t.toObject())
+
+        return {
+            id: this._id,
+            source: this._source,
+            destination: this._destination,
+            capacity: this._capacity,
+            availableSeats: this._availableSeats,
+            tickets: ticketObjects,
+            departed: departedString
+        }
+
     }
 }
