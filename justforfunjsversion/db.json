@@ -1,0 +1,1 @@
+{"routes":[{"rNum":3,"src":"Madrid","dest":"Segovia","seats":100,"tickets":[{"number":0},{"number":1}]},{"rNum":4,"src":"Segovia1","dest":"Madrid","seats":5,"tickets":[{"number":18,"checkedIn":true}]}],"ticketCounter":19}
