@@ -5,7 +5,7 @@ var RegisterRouteCommand = /** @class */ (function () {
     function RegisterRouteCommand(commandId, bbb) {
         var _this = this;
         this.execute = function (args) {
-            if (args.length < 4) {
+            if (args.length !== 4) {
                 console.log('Invalid number of arguments given');
                 return;
             }

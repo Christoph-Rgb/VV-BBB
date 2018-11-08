@@ -13,6 +13,7 @@ var BBB = /** @class */ (function () {
         this.loadRoutes = function () {
             _this._routes = new Array();
             //TODO: load routesObjects
+            //for each routeObject call Routes.fromObject and push to this._routes
         };
         this._commands = new Array();
         this._commands.push(new IBBBCommand_1.RegisterRouteCommand('registerroute', this));
@@ -28,20 +29,13 @@ var BBB = /** @class */ (function () {
         configurable: true
     });
     BBB.prototype.parseCommand = function () {
-        //TODO: why does it not get arguments???
-        // if (arguments.length === 0) {
-        //     console.log('No argument was given')
-        //     return
-        // }
-        var args = new Array();
-        for (var i = 0; i < arguments.length; i++) {
-            args.push(arguments[0]);
+        var args = process.argv;
+        args.shift();
+        args.shift();
+        if (args.length === 0) {
+            console.log('No argument was given');
+            return;
         }
-        args.push('registerroute');
-        args.push('R1');
-        args.push('Madrid');
-        args.push('Valencia');
-        args.push(50);
         var commandId = args.shift();
         var commandIndex = this._commands.map(function (c) { return c.commandId; }).indexOf(commandId);
         if (commandIndex === -1) {
@@ -50,7 +44,6 @@ var BBB = /** @class */ (function () {
         }
         var command = this._commands[commandIndex];
         command.execute(args);
-        console.log('test');
     };
     return BBB;
 }());

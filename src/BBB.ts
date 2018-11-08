@@ -37,16 +37,13 @@ export class BBB {
 
     private parseCommand() {
         
-        //TODO: why does it not get arguments???
+        let args = process.argv
+        args.shift()
+        args.shift()
 
-        if (arguments.length === 0) {
+        if (args.length === 0) {
             console.log('No argument was given')
             return
-        }
-
-        const args = new Array()
-        for (let i = 0; i < arguments.length; i++) {
-            args.push(arguments[0])
         }
 
         const commandId = args.shift()
