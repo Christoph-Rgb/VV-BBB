@@ -191,3 +191,45 @@ export class StatusComamnd extends BBBCommandBase implements IBBBCommand {
         return
     }
 }
+
+export class BuyCommand extends BBBCommandBase implements IBBBCommand {
+
+    constructor(bbb: BBB) {
+        super(bbb)
+    }
+
+    public get commandId(): string {
+        return 'buy'
+    }
+
+    execute = (args: Array<any>) => {
+        if (args.length !== 1) {
+            console.log('Invalid number of arguments given')
+            return
+        }
+
+        const routeId = args[0].trim()
+        if (!routeId || routeId.length === 0) {
+            console.log('Invalid value for route given')
+            return
+        }
+
+        const routeIndex = this._bbb.routes.map(r => r.id).indexOf(routeId)
+        if (routeIndex === -1) {
+            console.log(`Route ${routeId} does not exist`)
+            return
+        }
+
+        const route = this._bbb.routes[routeIndex]
+        const result = route.purchaseTicket()
+
+        if (!result.success) {
+            console.log('Sorry! You were too late! Tickets are sold out!')
+        }
+
+        const ticket = result.ticket
+
+        console.log(`Successfully purchased ticket ${ticket.id} on route ${route.id} from ${route.source} to ${route.destination}`)
+        return
+    }
+}
