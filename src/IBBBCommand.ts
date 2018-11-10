@@ -2,6 +2,7 @@ import { BBB } from "./BBB";
 import { Route } from "./Route";
 import { RouteStatus } from "./RouteStatus"
 import { basename } from "path";
+import { stringify } from "querystring";
 
 export interface IBBBCommand {
     commandId: string,
@@ -19,6 +20,54 @@ export abstract class BBBCommandBase {
         }
 
         this._bbb = bbb
+    }
+
+    protected getRouteFromArgs = (args: Array<any>) => {
+        if (args.length !== 1) {
+            console.log('Invalid number of arguments given')
+            return null
+        }
+
+        const routeId = args[0].trim()
+        if (!routeId || routeId.length === 0) {
+            console.log('Invalid value for route given')
+            return null
+        }
+
+        const routeIndex = this._bbb.routes.map(r => r.id).indexOf(routeId)
+        if (routeIndex === -1) {
+            console.log(`Route ${routeId} does not exist`)
+            return null
+        }
+
+        return this._bbb.routes[routeIndex]
+    }
+
+    protected getTicketIdFromArgs = (args: Array<any>) => {
+
+        if (args.length !== 1) {
+            console.log('Invalid number of arguments given')
+            return null
+        }
+
+        const ticketId = args[0].trim()
+        if (!ticketId || ticketId.length === 0) {
+            console.log('Invalid value for ticket given')
+            return null
+        }
+
+        return ticketId
+    }
+
+    protected getRouteFromTicketId = (ticketId: string) => {
+
+        const routes = this._bbb.routes.filter(route => route.tickets.map(ticket => ticket.id).indexOf(ticketId) !== -1)
+        if (routes.length === 0) {
+            console.log(`Ticket with id ${ticketId} does not exist`)
+            return null
+        }
+
+        return routes[0]
     }
 }
 
@@ -80,32 +129,20 @@ export class DeleteRouteCommand extends BBBCommandBase implements IBBBCommand {
     }
 
     execute = (args: Array<any>) => {
-        if (args.length !== 1) {
-            console.log('Invalid number of arguments given')
+
+        const route = this.getRouteFromArgs(args)
+        if (route === null) {
             return
         }
 
-        const routeId = args[0].trim()
-        if (!routeId || routeId.length === 0) {
-            console.log('Invalid value for route given')
-            return
-        }
-
-        const routeIndex = this._bbb.routes.map(r => r.id).indexOf(routeId)
-        if (routeIndex === -1) {
-            console.log(`Route ${routeId} does not exist`)
-            return
-        }
-
-        const route = this._bbb.routes[routeIndex]
         if (route.tickets.length > 0) {
-            console.log(`Cannot delete route ${routeId} because there are ${route.tickets.length} tickets booked`)
+            console.log(`Cannot delete route ${route.id} because there are ${route.tickets.length} tickets booked`)
             return
         }
 
-        this._bbb.routes = this._bbb.routes.filter(r => r.id !== routeId)
+        this._bbb.routes = this._bbb.routes.filter(r => r.id !== route.id)
 
-        console.log(`Successfully deleted route ${routeId}`)
+        console.log(`Successfully deleted route ${route.id}`)
         return
     }
 }
@@ -121,27 +158,15 @@ export class DepartCommand extends BBBCommandBase implements IBBBCommand {
     }
 
     execute = (args: Array<any>) => {
-        if (args.length !== 1) {
-            console.log('Invalid number of arguments given')
+
+        const route = this.getRouteFromArgs(args)
+        if (route === null) {
             return
         }
 
-        const routeId = args[0].trim()
-        if (!routeId || routeId.length === 0) {
-            console.log('Invalid value for route given')
-            return
-        }
-
-        const routeIndex = this._bbb.routes.map(r => r.id).indexOf(routeId)
-        if (routeIndex === -1) {
-            console.log(`Route ${routeId} does not exist`)
-            return
-        }
-
-        const route = this._bbb.routes[routeIndex]
         route.depart()
 
-        console.log(`${routeId} departed`)
+        console.log(`${route.id} departed`)
         return
     }
 }
@@ -165,19 +190,11 @@ export class StatusComamnd extends BBBCommandBase implements IBBBCommand {
         }
         else if (args.length === 1) 
         {
-            const routeId = args[0].trim()
-            if (!routeId || routeId.length === 0) {
-                console.log('Invalid value for route given')
+            const route = this.getRouteFromArgs(args)
+            if (route == null) {
                 return
             }
 
-            const routeIndex = this._bbb.routes.map(r => r.id).indexOf(routeId)
-            if (routeIndex === -1) {
-                console.log(`Route ${routeId} does not exist`)
-                return
-            }
-
-            const route: Route = this._bbb.routes[routeIndex]
             routesToDisplay.push(route)
         }
         else 
@@ -203,24 +220,12 @@ export class BuyCommand extends BBBCommandBase implements IBBBCommand {
     }
 
     execute = (args: Array<any>) => {
-        if (args.length !== 1) {
-            console.log('Invalid number of arguments given')
+        
+        const route = this.getRouteFromArgs(args)
+        if (route === null) {
             return
         }
 
-        const routeId = args[0].trim()
-        if (!routeId || routeId.length === 0) {
-            console.log('Invalid value for route given')
-            return
-        }
-
-        const routeIndex = this._bbb.routes.map(r => r.id).indexOf(routeId)
-        if (routeIndex === -1) {
-            console.log(`Route ${routeId} does not exist`)
-            return
-        }
-
-        const route = this._bbb.routes[routeIndex]
         const result = route.purchaseTicket()
 
         if (!result.success) {
@@ -245,25 +250,13 @@ export class CheckinCommand extends BBBCommandBase implements IBBBCommand {
     }
 
     execute = (args: Array<any>) => {
-        if (args.length !== 1) {
-            console.log('Invalid number of arguments given')
+        
+        const ticketId = this.getTicketIdFromArgs(args)
+        const route = this.getRouteFromTicketId(ticketId)
+        if (route == null) {
             return
         }
 
-        const ticketId = args[0].trim()
-        if (!ticketId || ticketId.length === 0) {
-            console.log('Invalid value for ticket given')
-            return
-        }
-
-
-        const routes = this._bbb.routes.filter(route => route.tickets.map(ticket => ticket.id).indexOf(ticketId) !== -1)
-        if (routes.length === 0) {
-            console.log(`Ticket with id ${ticketId} does not exist`)
-            return
-        }
-
-        const route = routes[0]
         const result = route.boardTicket(ticketId)
 
         if (!result.success) {
@@ -273,6 +266,37 @@ export class CheckinCommand extends BBBCommandBase implements IBBBCommand {
         const ticket = result.ticket
 
         console.log(`Successfully checked in ticket ${ticketId} on route ${route.id} from ${route.source} to ${route.destination} and assigned seat ${ticket.seat}`)
+        return
+    }
+}
+
+export class CancelCommand extends BBBCommandBase implements IBBBCommand {
+
+    constructor(bbb: BBB) {
+        super(bbb)
+    }
+
+    public get commandId(): string {
+        return 'cancel'
+    }
+
+    execute = (args: Array<any>) => {
+
+        const ticketId = this.getTicketIdFromArgs(args)
+        const route = this.getRouteFromTicketId(ticketId)
+        if (route == null) {
+            return
+        }
+
+        const result = route.cancelTicket(ticketId)
+
+        if (!result.success) {
+            console.log(`Unable to cancel ticket ${ticketId}: ${result.reason}`)
+        }
+
+        const ticket = result.ticket
+
+        console.log(`Cancelled in ticket ${ticketId} on route ${route.id} from ${route.source} to ${route.destination}`)
         return
     }
 }
