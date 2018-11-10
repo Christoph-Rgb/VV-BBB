@@ -1,5 +1,6 @@
 import { BBB } from "./BBB";
 import { Route } from "./Route";
+import { RouteStatus } from "./RouteStatus"
 import { basename } from "path";
 
 export interface IBBBCommand {
@@ -141,6 +142,52 @@ export class DepartCommand extends BBBCommandBase implements IBBBCommand {
         route.depart()
 
         console.log(`${routeId} departed`)
+        return
+    }
+}
+
+export class StatusComamnd extends BBBCommandBase implements IBBBCommand {
+
+    constructor(bbb: BBB) {
+        super(bbb)
+    }
+
+    public get commandId(): string {
+        return 'status'
+    }
+
+    execute = (args: Array<any>) => {
+
+        let routesToDisplay: Array<Route> = new Array()
+
+        if (args.length === 0) {
+            routesToDisplay = this._bbb.routes
+        }
+        else if (args.length === 1) 
+        {
+            const routeId = args[0].trim()
+            if (!routeId || routeId.length === 0) {
+                console.log('Invalid value for route given')
+                return
+            }
+
+            const routeIndex = this._bbb.routes.map(r => r.id).indexOf(routeId)
+            if (routeIndex === -1) {
+                console.log(`Route ${routeId} does not exist`)
+                return
+            }
+
+            const route: Route = this._bbb.routes[routeIndex]
+            routesToDisplay.push(route)
+        }
+        else 
+        {
+            console.log('Invalid number of arguments given')
+            return
+        }
+
+        routesToDisplay.forEach(route => console.log(`${route.id}: ${route.status}`))
+
         return
     }
 }

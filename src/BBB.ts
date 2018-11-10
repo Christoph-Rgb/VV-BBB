@@ -1,5 +1,5 @@
 import {Route} from './Route'
-import {IBBBCommand, RegisterRouteCommand, DeleteRouteCommand, DepartCommand} from './IBBBCommand'
+import {IBBBCommand, RegisterRouteCommand, DeleteRouteCommand, DepartCommand, StatusComamnd} from './IBBBCommand'
 import * as fs from 'fs'
 
 const filePath = './.bbb_data'
@@ -14,6 +14,7 @@ export class BBB {
         this._commands.push(new RegisterRouteCommand(this))
         this._commands.push(new DeleteRouteCommand(this))
         this._commands.push(new DepartCommand(this))
+        this._commands.push(new StatusComamnd(this))
 
         this.loadRoutes()
         this.parseCommand()
