@@ -11,7 +11,7 @@ export class BBB {
 
     constructor () {
         this._commands = new Array()
-        this._commands.push(new RegisterRouteCommand('registerroute', this))
+        this._commands.push(new RegisterRouteCommand(this))
 
         this.loadRoutes()
         this.parseCommand()

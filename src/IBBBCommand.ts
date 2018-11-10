@@ -1,32 +1,34 @@
 import { BBB } from "./BBB";
 import { Route } from "./Route";
+import { basename } from "path";
 
 export interface IBBBCommand {
     commandId: string,
     execute: (args: Array<any>) => any
 }
 
-export class RegisterRouteCommand implements IBBBCommand {
+export abstract class BBBCommandBase {
+    
+    protected _bbb: BBB
 
-    private _commandId: string
-    private _bbb: BBB
-
-    constructor(commandId: string, bbb: BBB) {
-
-        if (!commandId || commandId.trim().length === 0) {
-            throw new Error('Invalid commandId')
-        }
+    constructor(bbb: BBB) {
 
         if (bbb === null) {
             throw new Error('Invalid bbb')
         }
 
-        this._commandId = commandId
         this._bbb = bbb
+    }
+}
+
+export class RegisterRouteCommand extends BBBCommandBase implements IBBBCommand {
+
+    constructor(bbb: BBB) {
+        super(bbb)
     }
 
     get commandId(): string {
-        return this._commandId
+        return 'registerroute'
     }
 
     execute = (args: Array<any>) => {
