@@ -233,3 +233,46 @@ export class BuyCommand extends BBBCommandBase implements IBBBCommand {
         return
     }
 }
+
+export class CheckinCommand extends BBBCommandBase implements IBBBCommand {
+
+    constructor(bbb: BBB) {
+        super(bbb)
+    }
+
+    public get commandId(): string {
+        return 'checkin'
+    }
+
+    execute = (args: Array<any>) => {
+        if (args.length !== 1) {
+            console.log('Invalid number of arguments given')
+            return
+        }
+
+        const ticketId = args[0].trim()
+        if (!ticketId || ticketId.length === 0) {
+            console.log('Invalid value for ticket given')
+            return
+        }
+
+
+        const routes = this._bbb.routes.filter(route => route.tickets.map(ticket => ticket.id).indexOf(ticketId) !== -1)
+        if (routes.length === 0) {
+            console.log(`Ticket with id ${ticketId} does not exist`)
+            return
+        }
+
+        const route = routes[0]
+        const result = route.boardTicket(ticketId)
+
+        if (!result.success) {
+            console.log(`Unable to checkin ticket ${ticketId}: ${result.reason}`)
+        }
+
+        const ticket = result.ticket
+
+        console.log(`Successfully checked in ticket ${ticketId} on route ${route.id} from ${route.source} to ${route.destination} and assigned seat ${ticket.seat}`)
+        return
+    }
+}
