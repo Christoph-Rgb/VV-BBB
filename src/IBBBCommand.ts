@@ -67,3 +67,46 @@ export class RegisterRouteCommand extends BBBCommandBase implements IBBBCommand 
         console.log(`Created route ${routeId} from ${source} to ${destination} with ${capacity} seats`)
     }
 }
+
+export class DeleteRouteCommand extends BBBCommandBase implements IBBBCommand {
+
+    constructor(bbb: BBB) {
+        super(bbb)
+    }
+
+    public get commandId(): string {
+        return 'deleteroute'
+    }
+
+    execute = (args: Array<any>) => {
+        if (args.length !== 1) {
+            console.log('Invalid number of arguments given')
+            return
+        }
+
+        const routeId = args[0].trim()
+        if (!routeId || routeId.length === 0) {
+            console.log('Invalid value for route given')
+            return
+        }
+
+        const routeIndex = this._bbb.routes.map(r => r.id).indexOf(routeId)
+        if (routeIndex === -1) {
+            console.log(`Route ${routeId} does not exist`)
+            return
+        }
+
+        const route = this._bbb.routes[routeIndex]
+        if (route.tickets.length > 0) {
+            console.log(`Cannot delete route ${routeId} because there are ${route.tickets.length} tickets booked`)
+            return
+        }
+
+        this._bbb.routes = this._bbb.routes.filter(r => r.id !== routeId)
+
+        console.log(`Successfully deleted route ${routeId}`)
+        return
+    }
+
+
+}
