@@ -107,6 +107,40 @@ export class DeleteRouteCommand extends BBBCommandBase implements IBBBCommand {
         console.log(`Successfully deleted route ${routeId}`)
         return
     }
+}
 
+export class DepartCommand extends BBBCommandBase implements IBBBCommand {
 
+    constructor(bbb: BBB) {
+        super(bbb)
+    }
+
+    public get commandId(): string {
+        return 'depart'
+    }
+
+    execute = (args: Array<any>) => {
+        if (args.length !== 1) {
+            console.log('Invalid number of arguments given')
+            return
+        }
+
+        const routeId = args[0].trim()
+        if (!routeId || routeId.length === 0) {
+            console.log('Invalid value for route given')
+            return
+        }
+
+        const routeIndex = this._bbb.routes.map(r => r.id).indexOf(routeId)
+        if (routeIndex === -1) {
+            console.log(`Route ${routeId} does not exist`)
+            return
+        }
+
+        const route = this._bbb.routes[routeIndex]
+        route.depart()
+
+        console.log(`${routeId} departed`)
+        return
+    }
 }
