@@ -3,3 +3,4 @@ app
 .vscode
 *.map
 .bbb_data
+coverage

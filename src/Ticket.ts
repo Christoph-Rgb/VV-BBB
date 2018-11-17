@@ -39,7 +39,7 @@ export class Ticket {
         if (!object.hasOwnProperty('id') ||
             !object.hasOwnProperty('seat') ||
             !object.hasOwnProperty('boarded')) {
-            throw new Error ('Invalid json')
+            throw new Error ('Invalid object')
         }
 
         let ticket = new Ticket(object.id, object.seat)
