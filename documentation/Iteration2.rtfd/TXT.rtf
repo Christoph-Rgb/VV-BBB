@@ -1,6 +1,6 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\colortbl;\red255\green255\blue255;}
 \paperw11900\paperh16840\margl1440\margr1440\vieww16600\viewh17980\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
@@ -50,8 +50,8 @@ Expected Output:	Error(\'93Invalid capacity\'94)\
 TC_Route_6:		returns status \'93travelling\'94 on travelling\
 Class:			Route\
 Method:			getter status\
-Precondition:		Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: \'93\cf2 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 2008-09-15T15:53:00\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \'94, availableSeats: [0, \'85 , 9]\}\
+Precondition:		Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: \'93\expnd0\expndtw0\kerning0
+2008-09-15T15:53:00\kerning1\expnd0\expndtw0 \'94, availableSeats: [0, \'85 , 9]\}\
 Input:			N/A\
 Expected Output:	\'93travelling\'94\
 Note: 			The date set for departed is an example. For the test the current date and time will be set\
@@ -119,7 +119,7 @@ Expected Output:	\{ success: false, reason: \'93Ticket is already boarded\'94 \}
 \
 TC_Route_15:		successfully cancel ticket\
 Class:			Route\
-Method:			boardTicket\
+Method:			cancelTicket\
 Precondition:		Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T1_R1_9, \'85 T1_R1_0], departed: null, availableSeats: []\}, T1_R1_9\{ id: \'93T1_R1_9\'94, seat: 9, boarded: false \}\
 Input:			\{ ticketId: \'93T1_R1_9\'94 \}\
 Expected Output:	\{ success: true, ticket:  Ticket\{ id: \'93T1_R1_9\'94, seat: 9, boarded: false \} \},\
@@ -144,10 +144,10 @@ Expected Output:	\{ success: false, reason: \'93Ticket is already boarded\'94 \}
 TC_Route_18:		depart successfully sets departure time\
 Class:			Route\
 Method:			depart\
-Precondition:		Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T1_R1_9, \'85 T1_R1_0], departed: null, availableSeats: []\}\
+Precondition:		Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: null, availableSeats: [0, \'85, 9]\}\
 Input:			N/A\
-Expected Output:	Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T1_R1_9, \'85 T1_R1_0], departed: \'93\expnd0\expndtw0\kerning0
-2008-09-15T15:53:00\kerning1\expnd0\expndtw0 \'94, availableSeats: []\}\
+Expected Output:	Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: \'93\expnd0\expndtw0\kerning0
+2008-09-15T15:53:00\kerning1\expnd0\expndtw0 \'94, availableSeats: [0, \'85, 9]\}\
 Note: 			The date set for departed is an example. For the test the current date and time will be set\
 \
 TC_Route_19:		hasArrived successfully resets the Route\
@@ -186,14 +186,14 @@ Expected Output:	Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'
 2008-09-15T15:53:00\kerning1\expnd0\expndtw0 \'94, availableSeats: [0, 1, 2]\}\
 Note: 			The date set for departed is an example\
 \
-TC_Route_22:		fromObject successfully creates new Route without set departure and tickets\
+TC_Route_23:		fromObject successfully creates new Route without set departure and tickets\
 Class:			Route\
 Method:			fromObject\
 Precondition:		N/A\
 Input:			\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: null, availableSeats: [0, \'85, 9]\}\
 Expected Output:	Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: null, availableSeats: [0, \'85, 9]\}\
 \
-TC_Route_23:		toObject successfully creates new Object with set departure\
+TC_Route_24:		toObject successfully creates new Object with set departure\
 Class:			Route\
 Method:			toObject\
 Precondition:		Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T1_R1_9, \'85 T1_R1_3], departed: \'93\expnd0\expndtw0\kerning0
@@ -202,7 +202,7 @@ Input:			N/A\
 Expected Output:	Object\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T1_R1_9, \'85 T1_R1_3], departed: \'93\expnd0\expndtw0\kerning0
 2008-09-15T15:53:00\kerning1\expnd0\expndtw0 \'94, availableSeats: [0, 1, 2]\}\
 \
-TC_Route_24:		toObject successfully creates new Object without departure\
+TC_Route_25:		toObject successfully creates new Object without departure\
 Class:			Route\
 Method:			toObject\
 Precondition:		Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T1_R1_9, \'85 T1_R1_3], departed: null, availableSeats: [0, 1, 2]\}\
@@ -214,25 +214,69 @@ Expected Output:	Object\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \
 \
 
 \b\fs28 2. Run Test Cases\
+\
 
-\b0\fs24 \
+\b0\fs24 Failures:\
+\
+TC_Route_6\
+Expected Output:	\'93travelling\'94\
+Observed Output:	0\
+
+\b\fs28 \
+
+\b0\fs24 TC_Route_7\
+Expected Output:	\'93empty\'94\
+Observed Output:	1\
+\
+TC_Route_8\
+Expected Output:	\'93available\'94\
+Observed Output:	3\
+\
+TC_Route_9\
+Expected Output:	\'93full\'94\
+Observed Output:	2
+\b\fs28 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0\fs24 \cf0 {{\NeXTGraphic Pasted Graphic.tiff \width12140 \height15860
+}¬}
+\b\fs28 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0\fs24 \cf0 \
 \
 
 \b\fs28 3. Check Coverage
 \b0\fs24 \
 \
-\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 1.tiff \width11680 \height4860
+}¬}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 
 \b\fs28 4. Trace failures to faults
 \b0\fs24 \
 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 Method status() returns enum instead of string\
 \
-\
+{{\NeXTGraphic Pasted Graphic 3.tiff \width8900 \height4860
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 
 \b\fs28 5. Fix Code, Identify Missing Tests
 \b0\fs24 \
 \
-\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 2.tiff \width12700 \height8960
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 \
 \
 }
