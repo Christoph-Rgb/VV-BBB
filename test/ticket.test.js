@@ -24,7 +24,7 @@ describe('Ticket', () => {
 
   describe('initialization', () => {
 
-    it ('initializes correctly', () => {
+    it ('TC_Ticket_1: initializes correctly', () => {
       //act
       const ticket = new Ticket(validTicketId, validSeatNumber)
 
@@ -34,11 +34,11 @@ describe('Ticket', () => {
       expect(ticket.boarded).to.equal(false)
     }),
 
-    it('throws error for invalid id', () => {
+    it('TC_Ticket_2: throws error for invalid id', () => {
       expect(() => {new Ticket(invalidTicketId, validSeatNumber)}).throws('Invalid id')
     }),
 
-    it('throws error for invalid seat', () => {
+    it('TC_Ticket_3: throws error for invalid seat', () => {
       expect(() => {new Ticket(validTicketId, invalidSeatNumber)}).throws('Invalid seat')
     })
 
@@ -46,7 +46,7 @@ describe('Ticket', () => {
 
   describe ('boarded', () => {
 
-    it ('changes value correctly', () => {
+    it ('TC_Ticket_4: changes value correctly', () => {
       //arrange
       const ticket = new Ticket(validTicketId, validSeatNumber)
       expect(ticket.boarded).to.equal(false)
@@ -62,7 +62,7 @@ describe('Ticket', () => {
 
   describe('toObject', () => {
 
-    it('creates object correctly', () => {
+    it('TC_Ticket_5: creates object correctly', () => {
       //arange
       const ticket = new Ticket(validTicketId, validSeatNumber)
 
@@ -77,7 +77,7 @@ describe('Ticket', () => {
 
   describe('fromObject', () => {
 
-    it('creates ticket correctly', () => {
+    it('TC_Ticket_6: creates ticket correctly', () => {
       //act
       const ticket = Ticket.fromObject(validTicketObject)
 
@@ -87,7 +87,7 @@ describe('Ticket', () => {
       expect(ticket.boarded).to.equal(validTicketObject.boarded)
     }),
 
-    it('throws error for invalid ticket object', () => {
+    it('TC_Ticket_7: throws error for invalid ticket object', () => {
       expect(() => {Ticket.fromObject(invalidTicketObject)}).throws('Invalid object')
     })
 

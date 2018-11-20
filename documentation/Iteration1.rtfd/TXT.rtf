@@ -12,50 +12,49 @@
 \b0 \
 
 \fs24 \
-TC1:				initializes correctly\
+TC_Ticket_1:		initializes correctly\
 Class:			Ticket\
 Method:			constructor\
 Precondition:		N/A\
 Input:			\{ id: \'93T1\'94, seat: 1 \}\
 Expected Output:	Ticket\{ id: \'93T1\'94, seat: 1, boarded: false \}\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 TC2:				throws error for invalid id\
+TC_Ticket_2:		throws error for invalid id\
 Class:			Ticket\
 Method:			constructor\
 Precondition:		N/A\
 Input:			\{ id: \'93 \'94, seat: 1 \}\
 Expected Output:	Error(\'93Invalid id\'94)\
 \
-TC3:				throws error for invalid seat \
+TC_Ticket_3:		throws error for invalid seat \
 Class:			Ticket\
 Method:			constructor\
 Precondition:		N/A\
 Input:			\{ id: \'93T1\'94, seat: -1 \}\
 Expected Output:	Error(\'93Invalid seat\'94)\
 \
-TC4:				changes value correctly\
+TC_Ticket_4:		changes value correctly\
 Class:			Ticket\
 Method:			setter boarded\
 Precondition:		Ticket\{ boarded: false \}\
 Input:			true\
 Expected Output:	Ticket\{ boarded: true \}\
 \
-TC5:				creates object correctly\
+TC_Ticket_5:		creates object correctly\
 Class:			Ticket\
 Method:			toObject\
 Precondition:		Ticket\{ id: \'93T1\'94, seat: 1, boarded: false \}\
 Input:			N/A\
 Expected Output:	Object\{id: \'93T1\'94, seat: 1, boarded: false \}\
 \
-TC6:				creates ticket correctly\
+TC_Ticket_6:		creates ticket correctly\
 Class:			Ticket\
 Method:			fromObject\
 Precondition:		N/A\
 Input:			Object\{ id: \'93T1\'94, seat: 1, boarded: false \}\
 Expected Output:	Ticket\{id: \'93T1\'94, seat: 1, boarded: false \}\
 \
-TC7:				throws error for invalid ticket object\
+TC_Ticket_7:		throws error for invalid ticket object\
 Class:			Ticket\
 Method:			fromObject\
 Precondition:		N/A\
@@ -76,7 +75,8 @@ No failures\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 {{\NeXTGraphic Pasted Graphic.tiff \width11640 \height9000
-}¬}\
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 \
 \
 
@@ -84,8 +84,7 @@ No failures\
 \b0\fs24 \
 \
 N/A\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
+\
 \
 
 \b\fs28 5. Fix Code, Identify Missing Tests
