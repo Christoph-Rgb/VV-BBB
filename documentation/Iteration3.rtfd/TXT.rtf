@@ -1,0 +1,371 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww23400\viewh22580\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs36 \cf0 Iteration 2: Route Class Tests
+\b0\fs24 \
+\
+
+\b\fs28 1. Specify Test Cases
+\b0 \
+
+\fs24 \
+TC_RegisterRouteCommand_1:	returns correct id\
+Class:						RegisterRouteCommand\
+Method:						commandId get\
+Precondition:					N/A\
+Input:						N/A\
+Expected Output:				\'91registerroute\'92\
+\
+TC_RegisterRouteCommand_2:	fails for invalid number of arguments\
+Class:						RegisterRouteCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [] \}\
+Input:						[]\
+Expected Output:				BBB\{ _routes: [] \}\
+							Console: \'92Invalid number of arguments given\'92\
+\
+TC_RegisterRouteCommand_3:	fails for invalid route\
+Class:						RegisterRouteCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [] \}\
+Input:						[\'93 \'94, \'93Madrid\'94, \'93Toledo\'94, 10]\
+Expected Output:				BBB\{ _routes: [] \}\
+							Console: \'91Invalid value for route given\'92\
+\
+TC_RegisterRouteCommand_4:	fails for invalid source\
+Class:						RegisterRouteCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [] \}\
+Input:						[\'93R1\'94, null, \'93Toledo\'94, 10]\
+Expected Output:				BBB\{ _routes: [] \}\
+							Console: \'91Invalid value for source given\'92\
+\
+TC_RegisterRouteCommand_5:	fails for invalid destination\
+Class:						RegisterRouteCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [] \}\
+Input:						[\'93R1\'94, \'93Madrid\'94, undefined, 10]\
+Expected Output:				BBB\{ _routes: [] \}\
+							Console: \'91Invalid value for source given\'92\
+\
+TC_RegisterRouteCommand_6:	fails for invalid capacity\
+Class:						RegisterRouteCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [] \}\
+Input:						[\'93R1\'94, \'93Madrid\'94, \'93Toledo\'94, \'93asdf\'94]\
+Expected Output:				BBB\{ _routes: [] \}\
+							Console: \'91Invalid value for capacity\'92\
+\
+TC_RegisterRouteCommand_7:	succeeds for valid input\
+Class:						RegisterRouteCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [] \}\
+Input:						[\'93R1\'94, \'93Madrid\'94, \'93Toledo\'94, \'93asdf\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+							Console: \'93Created route R1 from Madrid to Toledo with 10 seats\'94\
+\
+=========================\
+\
+TC_DeleteRouteCommand_1:		returns correct id\
+Class:						DeleteRouteCommand\
+Method:						commandId get\
+Precondition:					N/A\
+Input:						N/A\
+Expected Output:				\'91deleteroute\'92\
+\
+TC_DeleteRouteCommand_2:		fails for invalid number of arguments\
+Class:						DeleteRouteCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}\
+Input:						[]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}\
+							Console: \'91Invalid number of arguments given\'92\
+\
+TC_DeleteRouteCommand_3:		fails for invalid route\
+Class:						DeleteRouteCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}\
+Input:						[\'93 \'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}\
+							Console: \'91Invalid value for route given\'92\
+\
+TC_DeleteRouteCommand_4:		fails for route with purchased tickets\
+Class:						DeleteRouteCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}\
+Input:						[\'93R1\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}\
+							Console: \'93Cannot delete route R1 because there are 1 tickets booked\'94\
+\
+TC_DeleteRouteCommand_5:		succeeds for valid input\
+Class:						DeleteRouteCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+Input:						[\'93R1\'94]\
+Expected Output:				BBB\{ _routes: [] \}\
+							Console: \'93Successfully deleted route R1\'94\
+\
+\
+\
+=========================\
+\
+TC_DepartCommand_1:			returns correct id\
+Class:						DepartCommand\
+Method:						commandId get\
+Precondition:					N/A\
+Input:						N/A\
+Expected Output:				\'91depart\'92\
+\
+TC_DepartCommand_2:			fails for invalid number of arguments\
+Class:						DepartCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}\
+Input:						[]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}\
+							Console: \'91Invalid number of arguments given\'92\
+\
+TC_DepartCommand_3:			fails for invalid route\
+Class:						DepartCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}\
+Input:						[\'93R_X\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}\
+							Console: \'91Invalid value for route given\'92\
+\
+TC_DepartCommand_4:			succeeds for valid route\
+Class:						DepartCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}\
+Input:						[\'93R1\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: \'93\expnd0\expndtw0\kerning0
+2008-09-15T15:53:00\'94\kerning1\expnd0\expndtw0 , availableSeats: [0, \'85 , 8]\}]\}\
+							Console: \'91R1 departed\'92\
+\
+=========================\
+\
+TC_StatusCommand_1:			returns correct id\
+Class:						StatusCommand\
+Method:						commandId get\
+Precondition:					N/A\
+Input:						N/A\
+Expected Output:				\'91status\'92\
+\
+TC_StatusCommand_2:			fails for invalid number of arguments\
+Class:						StatusCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+Input:						[\'93A\'94, \'93B\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+							Console: \'91Invalid number of arguments given\'92\
+\
+TC_StatusCommand_3:			does not print anything when specifying not existing route\
+Class:						StatusCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+Input:						[\'93R3\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+							Console: \'91\'92\
+\
+TC_StatusCommand_4:			prints status of one specified route successfully\
+Class:						StatusCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+Input:						[\'93R2\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+							Console: \'91R2: empty\'92\
+\
+TC_StatusCommand_5:			prints status without specified route successfully\
+Class:						StatusCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+Input:						[]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+							Console: \'93R1: available\
+								        R2: empty\'92\'94\
+\
+\
+\
+=========================\
+\
+\
+TC_BuyCommand_1:			returns correct id\
+Class:						BuyCommand\
+Method:						commandId get\
+Precondition:					N/A\
+Input:						N/A\
+Expected Output:				\'91buy\'92\
+\
+\
+TC_BuyCommand_2:			fails for not existing route\
+Class:						BuyCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+Input:						[\'93R3\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+							Console: \'91Route R3 does not exist\'92\
+\
+\
+TC_BuyCommand_3:			fails for sold out route\
+Class:						BuyCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9, \'85 T_R1_0], departed: null, availableSeats: []\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+Input:						[\'93R1\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9, \'85 T_R1_0]], departed: null, availableSeats: []\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+							Console: \'91Sorry! You were too late! Tickets are sold out!\'92\
+\
+\
+TC_BuyCommand_4:			succeeds for valid route\
+Class:						BuyCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+Input:						[\'93R1\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9, T_R1_8], departed: null, availableSeats: [0, \'85 , 7]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 5,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+							Console: \'91Successfully purchased ticket T_R1_8 on route R1 from Madrid to Toledo\'92\
+\
+\
+\
+=========================\
+\
+\
+TC_CheckinCommand_1:			returns correct id\
+Class:						CheckinCommand\
+Method:						commandId get\
+Precondition:					N/A\
+Input:						N/A\
+Expected Output:				\'91checkin\'92\
+\
+\
+TC_CheckinCommand_2:			fails for invalid number of arguments\
+Class:						CheckinCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+Input:						[]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+							Console: \'93Invalid number of arguments given\'94\
+\
+\
+TC_CheckinCommand_3:			fails for invalid value for ticket\
+Class:						CheckinCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+Input:						[\'93 \'93]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+							Console: \'93Invalid value for ticket given\'94\
+\
+TC_CheckinCommand_4:			fails for not existing ticket\
+Class:						CheckinCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+Input:						[\'93T_R1_X\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+							Console: \'93Ticket with id T_R1_X does not exist\'94\
+\
+\
+TC_CheckinCommand_5:			fails already boarded ticket\
+Class:						CheckinCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: true \}\
+Input:						[\'93T_R1_9\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: true \}\
+							Console: \'93Unable to checkin ticket T_R1_9: Ticket is already boarded\'94\
+\
+\
+TC_CheckinCommand_6:			succeeds for valid ticket\
+Class:						CheckinCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+Input:						[\'93T_R1_9\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: true \}\
+							Console: \'93Successfully checked in ticket T_R1_9 on route R1 from Madrid to Toledo and assigned seat 9\'94\
+\
+\
+\
+=========================\
+\
+\
+\
+TC_CancelCommand_1:			returns correct id\
+Class:						CancelCommand\
+Method:						commandId get\
+Precondition:					N/A\
+Input:						N/A\
+Expected Output:				\'91cancel\'92\
+\
+\
+TC_CancelCommand_2:			fails for invalid number of arguments\
+Class:						CancelCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+Input:						[]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+							Console: \'93Invalid number of arguments given\'94\
+\
+\
+TC_CancelCommand_3:			fails for invalid value for ticket\
+Class:						CancelCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+Input:						[\'93 \'93]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+							Console: \'93Invalid value for ticket given\'94\
+\
+TC_CancelCommand_4:			fails for not existing ticket\
+Class:						CancelCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+Input:						[\'93T_R1_X\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+							Console: \'93Ticket with id T_R1_X does not exist\'94\
+\
+TC_CancelCommand_5:			fails already boarded ticket\
+Class:						CancelCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: true \}\
+Input:						[\'93T_R1_9\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: true \}\
+							Console: \'93Unable to cancel ticket T_R1_9: Ticket is already boarded\'94\
+\
+\
+TC_CancelCommand_6:			succeeds for valid ticket\
+Class:						CancelCommand\
+Method:						execute\
+Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}]\}, Ticket\{ id: \'93T_R1_9\'94, seat: 9, boarded: false \}\
+Input:						[\'93T_R1_9\'94]\
+Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
+							Console: \'93Cancelled ticket T_R1_9 on route R1 from Madrid to Toledo\'94\
+\
+
+\b\fs28 2. Run Test Cases\
+\
+
+\b0\fs24 \
+\
+
+\b\fs28 3. Check Coverage
+\b0\fs24 \
+\
+\
+\
+
+\b\fs28 4. Trace failures to faults
+\b0\fs24 \
+\
+\
+\
+
+\b\fs28 5. Fix Code
+\b0\fs24 \
+\
+\
+\
+
+\b\fs28 6. Identify Missing Tests
+\b0\fs24 \
+\
+\
+\
+}
