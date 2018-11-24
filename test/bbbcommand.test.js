@@ -403,7 +403,7 @@ describe('IBBBCommand', () => {
             cmd.execute(["R3"])
 
             //assert
-            expect(this.spy.mock.calls).to.deep.equal([[]]);
+            expect(this.spy.mock.calls).to.deep.equal([['Route R3 does not exist']]);
             expect(bbb.routes.length).to.equal(2)
             validateRoute(bbb.routes[0], routeMadridToledoWithOneTicket)
             validateRoute(bbb.routes[1], initialRouteBarcelonaValencia)

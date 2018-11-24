@@ -5,7 +5,7 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww16860\viewh21160\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\b\fs36 \cf0 Iteration 2: Route Class Tests
+\f0\b\fs36 \cf0 Iteration 3: BBBCommand Tests
 \b0\fs24 \
 \
 
@@ -50,7 +50,7 @@ Method:						execute\
 Precondition:					BBB\{ _routes: [] \}\
 Input:						[\'93R1\'94, \'93Madrid\'94, undefined, 10]\
 Expected Output:				BBB\{ _routes: [] \}\
-							Console: \'91Invalid value for source given\'92\
+							Console: \'91Invalid value for destination given\'92\
 \
 TC_RegisterRouteCommand_6:	fails for invalid capacity\
 Class:						RegisterRouteCommand\
@@ -168,7 +168,7 @@ Method:						execute\
 Precondition:					BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 10,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
 Input:						[\'93R3\'94]\
 Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, \'85 , 8]\}, Route\{ id: \'93R2\'94, source: \'93Barcelona\'94, destination: \'93Valencia\'94, capacity: 10,  tickets: [], departed: null, availableSeats: [0, \'85 , 9]\}]\}\
-							Console: \'91\'92\
+							Console: \'91Route R3 does not exist\'92\
 \
 TC_StatusCommand_4:			prints status of one specified route successfully\
 Class:						StatusCommand\
@@ -342,14 +342,95 @@ Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'
 \b\fs28 2. Run Test Cases\
 \
 
-\b0\fs24 \
+\b0\fs24 Found 11 Failures\
 \
+TC_RegisterRouteCommand_4\
+Expected Output:	Console: \'91Invalid value for source given\'92\
+Observed Output:	TypeError(\'91Cannot read property \'91trim\'92 of null\'92)\
+\
+TC_RegisterRouteCommand_5\
+Expected Output:	Console: \'91Invalid value for destination given\'92\
+Observed Output:	TypeError(\'91Cannot read property \'91trim\'92 of undefined\'92)\
+\
+TC_RegisterRouteCommand_6\
+Expected Output:	Console: \'91Invalid value for capacity\'92\
+Observed Output:	RangeError(Invalid array length)\
+\
+\
+\
+TC_DepartCommand_3\
+Expected Output:	Console: \'91Invalid value for route given'\
+Observed Output:	Console: \'91Route R_X does not exist\'92\
+\
+\
+\
+\
+TC_BuyCommand_3\
+Expected Output:	Console: \'91Sorry! You were too late! Tickets are sold out!\'92\
+Observed Output:	TypeError(Cannot read property \'91id\'92 of undefined)\
+\
+\
+\
+\
+\
+TC_CheckinCommand_2\
+Expected Output:	Console: \'93Invalid number of arguments given\'94\
+Observed Output:	Console: \'93Invalid number of arguments given\'94\
+					       \'93Ticket with id null does not exist\'94\
+\
+TC_CheckinCommand_3\
+Expected Output:	Console: \'93Invalid value for ticket given\'94\
+Observed Output:	Console: \'93Invalid value for ticket given\'94\
+					       \'93Ticket with id null does not exist\'94\
+\
+TC_CheckinCommand_5\
+Expected Output:	Console: \'93Unable to checkin ticket T_R1_9: Ticket is already boarded\'94\
+Observed Output:	TypeError(Cannot read property \'91seat\'92 of undefined)\
+\
+\
+\
+\
+\
+TC_CancelCommand_2\
+Expected Output:	Console: \'93Invalid number of arguments given\'94\
+Observed Output:	Console: \'93Invalid number of arguments given\'94\
+					       \'93Ticket with id null does not exist\'94\
+\
+TC_CancelCommand_3\
+Expected Output:	Console: \'93Invalid value for ticket given\'94\
+Observed Output:	Console: \'93Invalid value for ticket given\'94\
+					       \'93Ticket with id null does not exist\'94\
+\
+TC_CancelCommand_5\
+Expected Output:	Console: \'93Unable to cancel ticket T_R1_9: Ticket is already boarded\'94\
+Observed Output:	Console: \'93Unable to cancel ticket T_R1_9: Ticket is already boarded\'94\
+					       \'93Cancelled ticket T_R1_9 on route R1 from Madrid to Toledo\'94\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 4.tiff \width14360 \height14400 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 1.tiff \width14680 \height17820 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 2.tiff \width15820 \height10180 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 
 \b\fs28 3. Check Coverage
 \b0\fs24 \
 \
-\
-\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 5.tiff \width10360 \height3640 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 
 \b\fs28 4. Trace failures to faults
 \b0\fs24 \
