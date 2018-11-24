@@ -296,7 +296,7 @@ export class CancelCommand extends BBBCommandBase implements IBBBCommand {
 
         const ticket = result.ticket
 
-        console.log(`Cancelled in ticket ${ticketId} on route ${route.id} from ${route.source} to ${route.destination}`)
+        console.log(`Cancelled ticket ${ticketId} on route ${route.id} from ${route.source} to ${route.destination}`)
         return
     }
 }
