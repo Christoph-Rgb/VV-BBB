@@ -197,10 +197,10 @@ export class Route {
         if (object.departed === null) {
             route._departed = null
         } else {
-            route._departed = moment(object.departed)
-            if (!route._departed.isValid()) {
+            if (!moment(object.departed, moment.ISO_8601, true).isValid()) {
                 throw new Error ('Invalid departed time')
             }
+            route._departed = moment(object.departed, moment.ISO_8601, true)
         }
 
         route._availableSeats = object.availableSeats

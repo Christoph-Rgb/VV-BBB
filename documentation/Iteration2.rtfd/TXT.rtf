@@ -320,8 +320,7 @@ TC_Route_26:		fromObject fails on invalid object\
 Class:			Route\
 Method:			fromObject\
 Precondition:		N/A\
-Input:			\{ id_X: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T1_R1_9, \'85 T1_R1_3], departed: \'93\expnd0\expndtw0\kerning0
-2008-09-15T15:53:00\kerning1\expnd0\expndtw0 \'94, availableSeats: [0, 1, 2]\}\
+Input:			\{ id_X: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: null, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\}\
 Expected Output:	Error(\'91Invalid object\'92)\
 Note: 			The date set for departed is an example\
 \
@@ -329,8 +328,47 @@ TC_Route_27:		fromObject fails on invalid departure time\
 Class:			Route\
 Method:			fromObject\
 Precondition:		N/A\
-Input:			\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T1_R1_9, \'85 T1_R1_3], departed: \'93\expnd0\expndtw0\kerning0
-4711\kerning1\expnd0\expndtw0 \'94, availableSeats: [0, 1, 2]\}\
+Input:			\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: \'93\expnd0\expndtw0\kerning0
+4711\kerning1\expnd0\expndtw0 \'94, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\}\
 Expected Output:	Error(\'91Invalid departed time\'92)\
 \
+\
+Detected new failure in TC_Route_27\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 6.tiff \width14200 \height3400 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+TC_Route_27:		fromObject fails on invalid departure time\
+Input:			\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: \'93\expnd0\expndtw0\kerning0
+4711\kerning1\expnd0\expndtw0 \'94, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\}\
+Expected Output:	Error(\'91Invalid departed time\'92)\
+Observed Output:	\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [], departed: \'93\expnd0\expndtw0\kerning0
+4711-01-01T00:00:00.000Z\kerning1\expnd0\expndtw0 \'94, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 8.tiff \width11220 \height9860 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+Fault: moment is not parsed enforcing ISO_8601 date format\
+\
+Fix: parse enforcing ISO_8601 date format\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 7.tiff \width11040 \height9760 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+Passing all tests and 100% coverage\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 9.tiff \width9880 \height4460 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 }

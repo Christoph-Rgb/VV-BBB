@@ -636,6 +636,40 @@ describe('Route', () => {
             validateRoute(route, validInitialRoute)
 
 
+        }),
+
+        it('TC_Route_26: fromObject fails on invalid object', () => {
+
+            //arrange
+            const routeObject = {
+                id_X: validInitialRoute.id,
+                source: validInitialRoute.source,
+                destination: validInitialRoute.destination,
+                capacity: validInitialRoute.capacity,
+                tickets: validInitialRoute.tickets,
+                departed: validInitialRoute.departed,
+                availableSeats: validInitialRoute.availableSeats
+            }
+
+            //act //assert
+            expect(() => {const route = Route.fromObject(routeObject)}).to.throw('Invalid object')
+
+        }),
+
+        it('TC_Route_27: fromObject fails on invalid departure time', () => {
+            //arrange
+            const routeObject = {
+                id: validInitialRoute.id,
+                source: validInitialRoute.source,
+                destination: validInitialRoute.destination,
+                capacity: validInitialRoute.capacity,
+                tickets: validInitialRoute.tickets,
+                departed: '4711',
+                availableSeats: validInitialRoute.availableSeats
+            }
+
+            //act //assert
+            expect(() => {const route = Route.fromObject(routeObject)}).to.throw('Invalid departed time')
         })
     }),
 
