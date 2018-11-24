@@ -145,10 +145,7 @@ export class Route {
             }
         }
 
-        const seat = ticket.seat
-
         this._tickets = this._tickets.filter((t) => t.id !== ticketId)
-        this._availableSeats.push(seat)
 
         return {
             success: true,
