@@ -267,6 +267,13 @@ Observed Output: 	\{ success: true, ticket:  Ticket\{ id: \'93T1_R1_9\'94, seat:
 \b0\fs24 \
 \
 Method status() returns enum value instead of string\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 4.tiff \width3220 \height1840 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 {{\NeXTGraphic Pasted Graphic 3.tiff \width8900 \height4860 \appleattachmentpadding0 \appleembedtype0 \appleaqc
 }¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
@@ -280,10 +287,27 @@ cancelTicket does remove the Ticket from the list of Tickets but does not add th
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \
 
-\b\fs28 5. Fix Code, Identify Missing Tests
+\b\fs28 5. Fix Code
 \b0\fs24 \
+TC_Route_15\
+Added the seat of the ticket to the list of available seats\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 3.tiff \width8900 \height8780 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 \
+TC_Route_6 - TC_Route_9\
+Changed enum to use string instead of int values\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 5.tiff \width3840 \height1840 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+
+\b\fs28 6. Identify Missing Tests
+\b0\fs24 \
 \
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
@@ -292,5 +316,21 @@ cancelTicket does remove the Ticket from the list of Tickets but does not add th
 \cf0 \
 \
 \
+TC_Route_26:		fromObject fails on invalid object\
+Class:			Route\
+Method:			fromObject\
+Precondition:		N/A\
+Input:			\{ id_X: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T1_R1_9, \'85 T1_R1_3], departed: \'93\expnd0\expndtw0\kerning0
+2008-09-15T15:53:00\kerning1\expnd0\expndtw0 \'94, availableSeats: [0, 1, 2]\}\
+Expected Output:	Error(\'91Invalid object\'92)\
+Note: 			The date set for departed is an example\
+\
+TC_Route_27:		fromObject fails on invalid departure time\
+Class:			Route\
+Method:			fromObject\
+Precondition:		N/A\
+Input:			\{ id: \'93R1\'94, source: \'93Madrid\'94, destination: \'93Toledo\'94, capacity: 10,  tickets: [T1_R1_9, \'85 T1_R1_3], departed: \'93\expnd0\expndtw0\kerning0
+4711\kerning1\expnd0\expndtw0 \'94, availableSeats: [0, 1, 2]\}\
+Expected Output:	Error(\'91Invalid departed time\'92)\
 \
 }

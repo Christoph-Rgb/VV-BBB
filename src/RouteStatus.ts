@@ -1,6 +1,6 @@
 export enum RouteStatus {
-    travelling,
-    empty,
-    full,
-    available
+    travelling = 'travelling',
+    empty = 'empty',
+    full = 'full',
+    available = 'available'
 }
