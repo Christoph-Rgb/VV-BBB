@@ -3,9 +3,9 @@
         "collectCoverage": true,
         "collectCoverageFrom": [
             "**/app/**"
-          ],
+        ],
         "coverageDirectory": "./coverage"
-      },
+    },
     "scripts": {
         "start": "tsc && node ./app/BBB.js",
         "test": "tsc && jest"
@@ -17,6 +17,7 @@
     "devDependencies": {
         "@types/jest": "23.3.9",
         "chai": "4.2.0",
-        "jest": "23.6.0"
+        "jest": "23.6.0",
+        "tslib": "1.9.3"
     }
 }

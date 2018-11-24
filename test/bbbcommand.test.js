@@ -336,7 +336,7 @@ describe('IBBBCommand', () => {
             validateRoute(bbb.routes[0], cloneRouteObject(routeMadridToledoWithOneTicket))
         }),
 
-        it('TC_DepartCommand_3: fails for invalid route', () => {
+        it('TC_DepartCommand_3: fails for not existing Route', () => {
             //arrange
             const bbb = mockBBBWithRoutes([cloneRouteObject(routeMadridToledoWithOneTicket)])
             const cmd = new DepartCommand(bbb)
@@ -345,7 +345,7 @@ describe('IBBBCommand', () => {
             cmd.execute(["R_X"])
 
             //assert
-            expect(this.spy.mock.calls).to.deep.equal([['Invalid value for route given']]);
+            expect(this.spy.mock.calls).to.deep.equal([['Route R_X does not exist']]);
             expect(bbb.routes.length).to.equal(1)
             validateRoute(bbb.routes[0], routeMadridToledoWithOneTicket)
         })
@@ -476,7 +476,7 @@ describe('IBBBCommand', () => {
             cmd.execute(["R1"])
 
             //assert
-            expect(this.spy.mock.calls).to.deep.equal([['Sorry! You were too late! Tickets are sold out']]);
+            expect(this.spy.mock.calls).to.deep.equal([['Sorry! You were too late! Tickets are sold out!']]);
             expect(bbb.routes.length).to.equal(2)
             validateRoute(bbb.routes[0], routeMadridToledoWithTenTicket)
             validateRoute(bbb.routes[1], initialRouteBarcelonaValencia)
@@ -571,7 +571,10 @@ describe('IBBBCommand', () => {
             //assert
             expect(this.spy.mock.calls).to.deep.equal([['Unable to checkin ticket T_R1_9: Ticket is already boarded']]);
             expect(bbb.routes.length).to.equal(1)
-            validateRoute(bbb.routes[0], routeMadridToledoWithOneTicket)
+
+            const expectedRoute = cloneRouteObject(routeMadridToledoWithOneTicket)
+            expectedRoute.tickets[0].boarded = true
+            validateRoute(bbb.routes[0], expectedRoute)
         }),
 
         it('TC_CheckinCommand_6: succeeds for valid ticket', () => {
@@ -681,6 +684,11 @@ describe('IBBBCommand', () => {
             expectedRoute.availableSeats.push(9)
             expectedRoute.tickets.pop()
             validateRoute(bbb.routes[0], expectedRoute)
+        }),
+
+        it('TC_CancelCommand_7: fails when initialized with invalid bbb', () => {
+            //act assert
+            expect(() => {new CancelCommand(null)}).to.throw('Invalid bbb')
         })
 
 

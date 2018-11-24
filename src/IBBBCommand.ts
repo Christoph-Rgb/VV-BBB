@@ -3,6 +3,7 @@ import { Route } from "./Route";
 import { RouteStatus } from "./RouteStatus"
 import { basename } from "path";
 import { stringify } from "querystring";
+var tslib_1 = require("tslib");
 
 export interface IBBBCommand {
     commandId: string,
@@ -28,11 +29,11 @@ export abstract class BBBCommandBase {
             return null
         }
 
-        const routeId = args[0].trim()
-        if (!routeId || routeId.length === 0) {
+        if (!args[0] || args[0].trim().length === 0) {
             console.log('Invalid value for route given')
             return null
         }
+        const routeId = args[0].trim()
 
         const routeIndex = this._bbb.routes.map(r => r.id).indexOf(routeId)
         if (routeIndex === -1) {
@@ -50,11 +51,11 @@ export abstract class BBBCommandBase {
             return null
         }
 
-        const ticketId = args[0].trim()
-        if (!ticketId || ticketId.length === 0) {
+        if (!args[0] || args[0].trim().length === 0) {
             console.log('Invalid value for ticket given')
             return null
         }
+        const ticketId = args[0].trim()
 
         return ticketId
     }
@@ -87,26 +88,26 @@ export class RegisterRouteCommand extends BBBCommandBase implements IBBBCommand 
             return
         }
 
-        const routeId = args[0].trim()
-        if (!routeId || routeId.length === 0) {
+        if (!args[0] || args[0].trim().length === 0) {
             console.log('Invalid value for route given')
             return
         }
+        const routeId = args[0].trim()
 
-        const source = args[1].trim()
-        if (!source || source.length === 0) {
+        if (!args[1] || args[1].trim().length === 0) {
             console.log('Invalid value for source given')
             return
         }
+        const source = args[1].trim()
 
-        const destination = args[2].trim()
-        if (!destination || destination.length === 0) {
+        if (!args[2] || args[2].trim().length === 0) {
             console.log('Invalid value for destination given')
             return
         }
+        const destination = args[2].trim()
 
         let capacity = Number(args[3])
-        if (capacity === NaN || capacity < 1) {
+        if (isNaN(capacity) || capacity < 1) {
             console.log('Invalid value for capacity given')
             return
         }
@@ -230,6 +231,7 @@ export class BuyCommand extends BBBCommandBase implements IBBBCommand {
 
         if (!result.success) {
             console.log('Sorry! You were too late! Tickets are sold out!')
+            return
         }
 
         const ticket = result.ticket
@@ -252,8 +254,12 @@ export class CheckinCommand extends BBBCommandBase implements IBBBCommand {
     execute = (args: Array<any>) => {
         
         const ticketId = this.getTicketIdFromArgs(args)
+        if (ticketId === null) {
+            return
+        }
+
         const route = this.getRouteFromTicketId(ticketId)
-        if (route == null) {
+        if (route === null) {
             return
         }
 
@@ -261,6 +267,7 @@ export class CheckinCommand extends BBBCommandBase implements IBBBCommand {
 
         if (!result.success) {
             console.log(`Unable to checkin ticket ${ticketId}: ${result.reason}`)
+            return
         }
 
         const ticket = result.ticket
@@ -283,8 +290,12 @@ export class CancelCommand extends BBBCommandBase implements IBBBCommand {
     execute = (args: Array<any>) => {
 
         const ticketId = this.getTicketIdFromArgs(args)
+        if (ticketId === null) {
+            return
+        }
+
         const route = this.getRouteFromTicketId(ticketId)
-        if (route == null) {
+        if (route === null) {
             return
         }
 
@@ -292,6 +303,7 @@ export class CancelCommand extends BBBCommandBase implements IBBBCommand {
 
         if (!result.success) {
             console.log(`Unable to cancel ticket ${ticketId}: ${result.reason}`)
+            return
         }
 
         const ticket = result.ticket
