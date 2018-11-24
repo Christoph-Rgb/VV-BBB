@@ -344,28 +344,28 @@ Expected Output:				BBB\{ _routes: [Route\{ id: \'93R1\'94, source: \'93Madrid\'
 
 \b0\fs24 Found 11 Failures\
 \
-TC_RegisterRouteCommand_4\
+TC_RegisterRouteCommand_4 fails for invalid source\
 Expected Output:	Console: \'91Invalid value for source given\'92\
 Observed Output:	TypeError(\'91Cannot read property \'91trim\'92 of null\'92)\
 \
-TC_RegisterRouteCommand_5\
+TC_RegisterRouteCommand_5 fails for invalid destination\
 Expected Output:	Console: \'91Invalid value for destination given\'92\
 Observed Output:	TypeError(\'91Cannot read property \'91trim\'92 of undefined\'92)\
 \
-TC_RegisterRouteCommand_6\
+TC_RegisterRouteCommand_6 fails for invalid capacity\
 Expected Output:	Console: \'91Invalid value for capacity\'92\
 Observed Output:	RangeError(Invalid array length)\
 \
 \
 \
-TC_DepartCommand_3\
+TC_DepartCommand_3 fails for invalid route\
 Expected Output:	Console: \'91Invalid value for route given'\
 Observed Output:	Console: \'91Route R_X does not exist\'92\
 \
 \
 \
 \
-TC_BuyCommand_3\
+TC_BuyCommand_3 fails for sold out route\
 Expected Output:	Console: \'91Sorry! You were too late! Tickets are sold out!\'92\
 Observed Output:	TypeError(Cannot read property \'91id\'92 of undefined)\
 \
@@ -373,17 +373,17 @@ Observed Output:	TypeError(Cannot read property \'91id\'92 of undefined)\
 \
 \
 \
-TC_CheckinCommand_2\
+TC_CheckinCommand_2 fails for invalid number of arguments\
 Expected Output:	Console: \'93Invalid number of arguments given\'94\
 Observed Output:	Console: \'93Invalid number of arguments given\'94\
 					       \'93Ticket with id null does not exist\'94\
 \
-TC_CheckinCommand_3\
+TC_CheckinCommand_3 fails for invalid value for ticket\
 Expected Output:	Console: \'93Invalid value for ticket given\'94\
 Observed Output:	Console: \'93Invalid value for ticket given\'94\
 					       \'93Ticket with id null does not exist\'94\
 \
-TC_CheckinCommand_5\
+TC_CheckinCommand_5 fails for already boarded ticket\
 Expected Output:	Console: \'93Unable to checkin ticket T_R1_9: Ticket is already boarded\'94\
 Observed Output:	TypeError(Cannot read property \'91seat\'92 of undefined)\
 \
@@ -391,24 +391,24 @@ Observed Output:	TypeError(Cannot read property \'91seat\'92 of undefined)\
 \
 \
 \
-TC_CancelCommand_2\
+TC_CancelCommand_2 fails for invalid number of arguments\
 Expected Output:	Console: \'93Invalid number of arguments given\'94\
 Observed Output:	Console: \'93Invalid number of arguments given\'94\
 					       \'93Ticket with id null does not exist\'94\
 \
-TC_CancelCommand_3\
+TC_CancelCommand_3 fails for invalid value for ticket\
 Expected Output:	Console: \'93Invalid value for ticket given\'94\
 Observed Output:	Console: \'93Invalid value for ticket given\'94\
 					       \'93Ticket with id null does not exist\'94\
 \
-TC_CancelCommand_5\
+TC_CancelCommand_5 fails for already boarded ticket\
 Expected Output:	Console: \'93Unable to cancel ticket T_R1_9: Ticket is already boarded\'94\
 Observed Output:	Console: \'93Unable to cancel ticket T_R1_9: Ticket is already boarded\'94\
 					       \'93Cancelled ticket T_R1_9 on route R1 from Madrid to Toledo\'94\
 \
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 {{\NeXTGraphic Pasted Graphic 4.tiff \width14360 \height14400 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+\cf0 {{\NeXTGraphic Pasted Graphic 6.tiff \width14420 \height14760 \appleattachmentpadding0 \appleembedtype0 \appleaqc
 }¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
@@ -434,6 +434,90 @@ Observed Output:	Console: \'93Unable to cancel ticket T_R1_9: Ticket is already 
 
 \b\fs28 4. Trace failures to faults
 \b0\fs24 \
+\
+\
+TC_RegisterRouteCommand_4 fails for invalid source:\
+args[1] is null and trim() cannot be called on null\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 7.tiff \width12200 \height10660 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+TC_RegisterRouteCommand_5 fails for invalid destination\
+Same as with TC_RegisterRouteCommand_4 but with args[2]\
+\
+TC_RegisterRouteCommand_6 fails for invalid capacity\
+Using === NaN always yields false\
+\
+\
+\
+\
+TC_DepartCommand_3 fails for invalid route\
+Test case was poorly specified (the observed output is correct and the expected one is not):\
+	Title: fails for not existing Route\
+	Expected Output: Console(\'93Route R_X does not exist\'94)\
+\
+\
+\
+TC_BuyCommand_3 fails for sold out route\
+Missing return statement after error message\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 9.tiff \width15860 \height5580 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+TC_CheckinCommand_2 fails for invalid number of arguments\
+Missing null check for ticketId \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 10.tiff \width15900 \height6200 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+TC_CheckinCommand_3 fails for invalid value for ticket\
+Same as TC_CheckinCommand_2\
+\
+TC_CheckinCommand_5 fails for already boarded ticket\
+Missing return after error message\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 11.tiff \width15780 \height6140 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\
+TC_CancelCommand_2 fails for invalid number of arguments\
+Missing null check for ticketId\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 12.tiff \width13980 \height5920 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+TC_CancelCommand_3 fails for invalid value for ticket\
+Same as TC_CancelCommand_2\
+\
+\
+\
+\
+TC_CancelCommand_5 fails for already boarded ticket\
+Missing return statement after error message\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 13.tiff \width13880 \height5840 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
 \
 \
 \

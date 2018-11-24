@@ -214,7 +214,7 @@ describe('IBBBCommand', () => {
     
         }),
 
-        it('TC_RegisterRouteCommand_6: fails for invalid destination', () => {
+        it('TC_RegisterRouteCommand_6: fails for invalid capacity', () => {
             //arrange
             const bbb = mockBBBWithNoRoutes()
             const cmd = new RegisterRouteCommand(bbb)
