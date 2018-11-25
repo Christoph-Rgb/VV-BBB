@@ -2,14 +2,16 @@ import {Route} from './Route'
 import {IBBBCommand, RegisterRouteCommand, DeleteRouteCommand, DepartCommand, StatusComamnd, BuyCommand, CheckinCommand, CancelCommand} from './IBBBCommand'
 import * as fs from 'fs'
 
-const filePath = './.bbb_data'
-
 export class BBB {
 
     _routes: Array<Route>
     _commands: Array<IBBBCommand>
+    _filePath: string
 
-    constructor () {
+    constructor (filePath: string) {
+
+        this._filePath = filePath
+
         this._commands = new Array()
         this._commands.push(new RegisterRouteCommand(this))
         this._commands.push(new DeleteRouteCommand(this))
@@ -18,10 +20,6 @@ export class BBB {
         this._commands.push(new BuyCommand(this))
         this._commands.push(new CheckinCommand(this))
         this._commands.push(new CancelCommand(this))
-
-        this.loadRoutes()
-        this.parseCommand()
-        this.saveRoutes()
     }
 
     get routes(): Array<Route> {
@@ -32,18 +30,18 @@ export class BBB {
         this._routes = newRoutes
     }
 
-    private saveRoutes = () => {
+    public saveRoutes = () => {
         const routeObjects = this._routes.map((r) => r.toObject())
         const json = JSON.stringify(routeObjects)
     
-        fs.writeFileSync(filePath, json)
+        fs.writeFileSync(this._filePath, json)
     }
 
-    private loadRoutes = () => {
+    public loadRoutes = () => {
         this._routes = new Array()
 
-        if (fs.existsSync(filePath)) {
-            const input = fs.readFileSync(filePath)
+        if (fs.existsSync(this._filePath)) {
+            const input = fs.readFileSync(this._filePath)
             const routeObjects: Array<any> = JSON.parse(input.toString())
     
             for (const index in routeObjects) {
@@ -55,12 +53,8 @@ export class BBB {
         }
     }
 
-    private parseCommand = () => {
+    public parseCommand = (args: Array<any>) => {
         
-        let args = process.argv
-        args.shift()
-        args.shift()
-
         if (args.length === 0) {
             console.log('No argument was given')
             return
@@ -80,4 +74,11 @@ export class BBB {
 
 }
 
-const bbb = new BBB()
+let args = process.argv
+args.shift()
+args.shift()
+
+const bbb = new BBB('./.bbb_data')
+bbb.loadRoutes()
+bbb.parseCommand(args)
+bbb.saveRoutes()
