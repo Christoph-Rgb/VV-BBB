@@ -3,6 +3,31 @@
 
 #+OPTIONS: ^:nil
 
+* Description of Coverage Screenshot
+
+In the screenshot of the coverage tools output a table with 6 columns
+is shown and below the amount of passed or failed test suites and how
+many of the tests out of these test suites passed and failed.
+
+The table describes for each file the percentage of statement, branch,
+function, line coverage and gives a selection of uncovered lines if
+any.
+
+The should be output should be totally green, with a 100% at "%
+Branch" for all files and all Test Suites passed.
+
+* Testing approach
+
+We tried to reach 100% branch coverage in the code by the use of unit
+tests. For this, all classes that we created where tested individually
+until 100% branch coverage was reached. We used the testing framework
+[[https://jestjs.io/en/][Jest]] that enabled us to run automated tests on individual files.
+
+We did not find any non-reachable code but we found several faults that
+we fixed as documented below.
+
+For space reasons we where not able to use tables as formatting.
+
 * Iteration 1
 
 ** Specify Test Cases
@@ -280,7 +305,6 @@
   - Input ::      N/A
   - Expected Output ::  Object{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T1_R1_9, … T1_R1_3], departed: null, availableSeats: [0, 1, 2]}
 
-
 ** Run Test Cases
 
 *** Class Ticket
@@ -463,17 +487,9 @@
   - Observed Output ::  Object{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T1_R1_9, … T1_R1_3], departed: null, availableSeats: [0, 1, 2]}
   - Failure :: None
 
-
 ** Check Coverage
 
 [[file:./Iteration2.rtfd/Pasted Graphic 1.tiff.png]]
-
-*** Identify Missing Tests
-
-[[file:./Iteration2.rtfd/1_Pasted Graphic 2.tiff.png]]
-
-TODO: State what is missing?
-
 
 ** Trace failures to faults
 
@@ -920,7 +936,6 @@ TODO: State what is missing?
   - Input ::      args: [“status”]
   - Expected Output ::  _commands[“status”].execute was called
 
-
 ** Run Test Cases
 
 
@@ -1170,15 +1185,50 @@ TODO: State what is missing?
               Console: “Cancelled ticket T_R1_9 on route R1 from Madrid to Toledo”
   - Failure :: None
 
+*** Class BBB
 
-* TODO: Missing the BBB results
+- TC_BBB_1 ::   successfully writes file
+  - Expected Output ::  file: [{ “id”: “R1”, “source”: “Madrid”, “destination”: “Toledo”, “capacity”: 10,  “tickets”: [{id: “T_R1_9”, “seat”: 9, “boarded”: false}], “departed”: null, “availableSeats”: [0, … , 8]},
+                { “id”: “R2”, “source”: “Barcelona”, “destination”: “Valencia”, “capacity”: 10,  “tickets”: [], “departed”: null, “availableSeats”: [0, … , 9]}]
+  - Observed Output ::  file: [{ “id”: “R1”, “source”: “Madrid”, “destination”: “Toledo”, “capacity”: 10,  “tickets”: [{id: “T_R1_9”, “seat”: 9, “boarded”: false}], “departed”: null, “availableSeats”: [0, … , 8]},
+                { “id”: “R2”, “source”: “Barcelona”, “destination”: “Valencia”, “capacity”: 10,  “tickets”: [], “departed”: null, “availableSeats”: [0, … , 9]}]
+  - Failure :: None
+
+- TC_BBB_2 ::   successfully reads file with routes
+  - Expected Output ::  routes: [{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]},
+              { id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]
+  - Observed Output ::  routes: [{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]},
+              { id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]
+  - Failure :: None
+
+- TC_BBB_3 ::   successfully reads without routes
+  - Expected Output ::  routes: []
+  - Observed Output ::  routes: []
+  - Failure :: None
+
+- TC_BBB_4 ::   does not read not existing file
+  - Expected Output ::  routes: []
+  - Observed Output ::  routes: []
+  - Failure :: None
+
+- TC_BBB_5 ::   fails for no arguments given
+  - Expected Output ::  Console: “No argument was given”
+  - Observed Output ::  Console: “No argument was given”
+  - Failure :: None
+
+- TC_BBB_6 ::   fails for not existing command
+  - Expected Output ::  Console: “Command asdf does not exist”
+  - Observed Output ::  Console: “Command asdf does not exist”
+  - Failure :: None
+
+- TC_BBB_7 ::   succeeds for existing command
+  - Expected Output ::  _commands[“status”].execute was called
+  - Observed Output ::  _commands[“status”].execute was called
+  - Failure :: None
 
 ** Check Coverage
 
 [[file:documentation.org.img/org_20181130_184134_VwJ8or.jpg]]
-
-** Identify Missing Tests
-
 
 ** Trace failures to faults
 
@@ -1208,7 +1258,6 @@ The same failure and fault as in TC_RegisterRouteCommand_4 but with second argum
 - Fault :: The check if an invalid capacity has been given is done using the condition "capacity === NaN" but performing a "===" check on =NaN= always yields false
 - Fix :: Use the method =isNaN()= for checking for an invalid capacity
 The fault in fix is also shown in the screenshots from TC_RegisterRouteCommand_4.
-
 
 *** TC_DepartCommand_3
 
@@ -1260,7 +1309,6 @@ The same failure and fault as in TC_CancelCommand_2. Is fixed the same way.
          [[file:./Iteration3.rtfd/Pasted Graphic 13.tiff.png]]
 - Fix :: Added the return statement in the cases of an unsuccessful cancel attempt
 
-
 * Iteration 3
 
 ** Specify Test Cases
@@ -1275,6 +1323,15 @@ The same failure and fault as in TC_CancelCommand_2. Is fixed the same way.
                      { id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]
   - Input ::      routes: [{ id: “R1”, source: “Berlin”, destination: “Toledo”, capacity: 11,  tickets: [], departed: null, availableSeats: [0, … , 9]}]
   - Expected Output ::  routes: [{ id: “R1”, source: “Berlin”, destination: “Toledo”, capacity: 11,  tickets: [], departed: null, availableSeats: [0, … , 9]}]
+
+** Run Test Cases
+
+*** Class BBB
+
+- TC_BBB_8 ::   set routes
+  - Expected Output ::  routes: [{ id: “R1”, source: “Berlin”, destination: “Toledo”, capacity: 11,  tickets: [], departed: null, availableSeats: [0, … , 9]}]
+  - Observed Output ::  routes: [{ id: “R1”, source: “Berlin”, destination: “Toledo”, capacity: 11,  tickets: [], departed: null, availableSeats: [0, … , 9]}]
+  - Failure :: None
 
 ** Check Coverage
 
