@@ -463,241 +463,6 @@
   - Observed Output ::  Object{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T1_R1_9, … T1_R1_3], departed: null, availableSeats: [0, 1, 2]}
   - Failure :: None
 
-# *** IBBBCommand based classes
-
-# - *TC_RegisterRouteCommand_1*
-#   - Expected Output ::        ‘registerroute’
-#   - Observed Output ::        ‘registerroute’
-#   - Failure :: None
-
-# - *TC_RegisterRouteCommand_2*
-#   - Expected Output ::
-#     BBB{ _routes: [] }\\
-#     Console: ’Invalid number of arguments given’
-#   - Observed Output :: BBB{ _routes: [] }\\
-#     Console: ’Invalid number of arguments given’
-#   - Failure :: None
-
-# - *TC_RegisterRouteCommand_3*
-#   - Input ::            [“ ”, “Madrid”, “Toledo”, 10]
-#   - Expected Output ::        BBB{ _routes: [] }\\
-#               Console: ‘Invalid value for route given’
-#   - Observed Output ::        BBB{ _routes: [] }\\
-#               Console: ‘Invalid value for route given’
-#   - Failure :: None
-
-# - *TC_RegisterRouteCommand_4*
-#   - Expected Output ::  Console: ‘Invalid value for source given’
-#   - Observed Output ::  TypeError(‘Cannot read property ‘trim’ of null’)
-#   - Failure :: Yes
-
-# - *TC_RegisterRouteCommand_5*
-#   - Expected Output ::  Console: ‘Invalid value for destination given’
-#   - Observed Output ::  TypeError(‘Cannot read property ‘trim’ of undefined’)
-#   - Failure :: Yes
-
-# - *TC_RegisterRouteCommand_6*
-#   - Expected Output ::  Console: ‘Invalid value for capacity’
-#   - Observed Output ::  RangeError(Invalid array length)
-#   - Failure :: Yes
-
-# - *TC_RegisterRouteCommand_7*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: “Created route R1 from Madrid to Toledo with 10 seats”
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: “Created route R1 from Madrid to Toledo with 10 seats”
-#   - Failure :: None
-
-# - *TC_DeleteRouteCommand_1*
-#   - Expected Output ::        ‘deleteroute’
-#   - Observed Output ::        ‘deleteroute’
-#   - Failure :: None
-
-# - *TC_DeleteRouteCommand_2*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
-#               Console: ‘Invalid number of arguments given’
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
-#               Console: ‘Invalid number of arguments given’
-#   - Failure :: None
-
-# - *TC_DeleteRouteCommand_3*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
-#               Console: ‘Invalid value for route given’
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
-#               Console: ‘Invalid value for route given’
-#   - Failure :: None
-
-# - *TC_DeleteRouteCommand_4*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
-#               Console: “Cannot delete route R1 because there are 1 tickets booked”
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
-#               Console: “Cannot delete route R1 because there are 1 tickets booked”
-#   - Failure :: None
-
-# - *TC_DeleteRouteCommand_5*
-#   - Expected Output ::        BBB{ _routes: [] }\\
-#               Console: “Successfully deleted route R1”
-#   - Observed Output ::        BBB{ _routes: [] }\\
-#               Console: “Successfully deleted route R1”
-#   - Failure :: None
-
-# - *TC_DepartCommand_1*
-#   - Expected Output ::        ‘depart’
-#   - Observed Output ::        ‘depart’
-#   - Failure :: None
-
-# - *TC_DepartCommand_2*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
-#               Console: ‘Invalid number of arguments given’
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
-#               Console: ‘Invalid number of arguments given’
-#   - Failure :: None
-
-# - *TC_DepartCommand_3*
-#   - Expected Output ::  Console: ‘Invalid value for route given'
-#   - Observed Output ::  Console: ‘Route R_X does not exist’
-#   - Failure :: Yes
-
-# - *TC_DepartCommand_4*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: “2008-09-15T15:53:00”, availableSeats: [0, … , 8]}]}\\
-#               Console: ‘R1 departed’
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: “2008-09-15T15:53:00”, availableSeats: [0, … , 8]}]}\\
-#               Console: ‘R1 departed’
-#   - Failure :: None
-
-# - *TC_StatusCommand_1*
-#   - Expected Output ::        ‘status’
-#   - Observed Output ::        ‘status’
-#   - Failure :: None
-
-# - *TC_StatusCommand_2*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: ‘Invalid number of arguments given’
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: ‘Invalid number of arguments given’
-#   - Failure :: None
-
-# - *TC_StatusCommand_3*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: ‘Route R3 does not exist’
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: ‘Route R3 does not exist’
-#   - Failure :: None
-
-# - *TC_StatusCommand_4*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: ‘R2: empty’
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: ‘R2: empty’
-#   - Failure :: None
-
-# - *TC_StatusCommand_5*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: “R1: available
-#                         R2: empty’”
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: “R1: available
-#                         R2: empty’”
-#   - Failure :: None
-
-# - *TC_BuyCommand_1*
-#   - Expected Output ::        ‘buy’
-#   - Observed Output ::        ‘buy’
-#   - Failure :: None
-
-# - *TC_BuyCommand_2*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: ‘Route R3 does not exist’
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: ‘Route R3 does not exist’
-#   - Failure :: None
-
-# - *TC_BuyCommand_3*
-#   - Expected Output ::  Console: ‘Sorry! You were too late! Tickets are sold out!’
-#   - Observed Output ::  TypeError(Cannot read property ‘id’ of undefined)
-#   - Failure :: Yes
-
-# - *TC_BuyCommand_4*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9, T_R1_8], departed: null, availableSeats: [0, … , 7]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: ‘Successfully purchased ticket T_R1_8 on route R1 from Madrid to Toledo’
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9, T_R1_8], departed: null, availableSeats: [0, … , 7]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: ‘Successfully purchased ticket T_R1_8 on route R1 from Madrid to Toledo’
-#   - Failure :: None
-
-# - *TC_CheckinCommand_1*
-#   - Expected Output ::        ‘checkin’
-#   - Observed Output ::        ‘checkin’
-#   - Failure :: None
-
-# - *TC_CheckinCommand_2*
-#   - Expected Output ::  Console: “Invalid number of arguments given”
-#   - Observed Output ::  Console: “Invalid number of arguments given”
-#                  “Ticket with id null does not exist”
-#   - Failure :: Yes
-
-# - *TC_CheckinCommand_3*
-#   - Expected Output ::  Console: “Invalid value for ticket given”
-#   - Observed Output ::  Console: “Invalid value for ticket given”
-#                  “Ticket with id null does not exist”
-#   - Failure :: Yes
-
-# - *TC_CheckinCommand_4*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: false }\\
-#               Console: “Ticket with id T_R1_X does not exist”
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: false }\\
-#               Console: “Ticket with id T_R1_X does not exist”
-#   - Failure :: None
-
-# - *TC_CheckinCommand_5*
-#   - Expected Output ::  Console: “Unable to checkin ticket T_R1_9: Ticket is already boarded”
-#   - Observed Output ::  TypeError(Cannot read property ‘seat’ of undefined)
-#   - Failure :: Yes
-
-# - *TC_CheckinCommand_6*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: true }\\
-#               Console: “Successfully checked in ticket T_R1_9 on route R1 from Madrid to Toledo and assigned seat 9”
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: true }\\
-#               Console: “Successfully checked in ticket T_R1_9 on route R1 from Madrid to Toledo and assigned seat 9”
-#   - Failure :: None
-
-# - *TC_CancelCommand_1*
-#   - Expected Output ::        ‘cancel’
-#   - Observed Output ::        ‘cancel’
-#   - Failure :: None
-
-# - *TC_CancelCommand_2*
-#   - Expected Output ::  Console: “Invalid number of arguments given”
-#   - Observed Output ::  Console: “Invalid number of arguments given”\\
-#                  Console: “Ticket with id null does not exist”
-#   - Failure :: Yes
-
-# - *TC_CancelCommand_3*
-#   - Expected Output ::  Console: “Invalid value for ticket given”
-#   - Observed Output ::  Console: “Invalid value for ticket given”\\
-#        Console: “Ticket with id null does not exist”
-#   - Failure :: Yes
-
-# - *TC_CancelCommand_4*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: false }\\
-#               Console: “Ticket with id T_R1_X does not exist”
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: false }\\
-#               Console: “Ticket with id T_R1_X does not exist”
-#   - Failure :: None
-
-# - *TC_CancelCommand_5*
-#   - Expected Output ::  Console: “Unable to cancel ticket T_R1_9: Ticket is already boarded”
-#   - Observed Output ::  Console: “Unable to cancel ticket T_R1_9: Ticket is already boarded”\\
-#                  Console: “Cancelled ticket T_R1_9 on route R1 from Madrid to Toledo”
-#   - Failure :: Yes
-
-# - *TC_CancelCommand_6*
-#   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: “Cancelled ticket T_R1_9 on route R1 from Madrid to Toledo”
-#   - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
-#               Console: “Cancelled ticket T_R1_9 on route R1 from Madrid to Toledo”
-#   - Failure :: None
-
-# *** Class BBB
 
 ** Check Coverage
 
@@ -707,30 +472,8 @@
 
 [[file:./Iteration2.rtfd/1_Pasted Graphic 2.tiff.png]]
 
+TODO: State what is missing?
 
-
-
-
-# Detected new failure in TC_Route_27
-# Pasted Graphic 6.tiff ¬
-
-
-# TC_Route_27:    fromObject fails on invalid departure time
-# Input:      { id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: “4711”, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
-# Expected Output:  Error(‘Invalid departed time’)
-# Observed Output:  { id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: “4711-01-01T00:00:00.000Z”, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
-
-
-# Pasted Graphic 8.tiff ¬
-
-# Fault: moment is not parsed enforcing ISO_8601 date format
-
-# Fix: parse enforcing ISO_8601 date format
-# Pasted Graphic 7.tiff ¬
-
-
-Passing all tests and 100% coverage
-Pasted Graphic 9.tiff ¬
 
 ** Trace failures to faults
 
@@ -750,81 +493,30 @@ Pasted Graphic 9.tiff ¬
 - Fix :: Added the seat of the ticket to the list of available seats:
   [[file:./Iteration2.rtfd/1_Pasted Graphic 3.tiff.png]]
 
-# *** TC_RegisterRouteCommand_4
-
-# - Failure :: Instead of showing a meaningful error message a =TypeError= is thrown
-# - Fault :: The method =trim()= is called on the first argument =args[0]= which is =null=
-#   [[file:./Iteration3.rtfd/Pasted Graphic 7.tiff.png]]
-# - Fix :: Ensure that =args[1]= is not null before using the =trim()= method
-#   [[file:./Iteration3.rtfd/Pasted Graphic 14.tiff.png]]
-
-# *** TC_RegisterRouteCommand_5
-
-# The same failure and fault as in TC_RegisterRouteCommand_4 but with second argument =args[2]=. Is fixed the same way as TC_RegisterRouteCommand_4 and already shown in the previous screenshotss.
-
-# *** TC_RegisterRouteCommand_6
-
-# - Failure :: Instead of showing a meaninigful error message a =RangeError= is thrown in the constructor of the =Route=
-# - Fault :: The check if an invalid capacity has been given is done using the condition "capacity === NaN" but performing a "===" check on =NaN= always yields false
-# - Fix :: Use the method =isNaN()= for checking for an invalid capacity
-# The fault in fix is also shown in the screenshots from TC_RegisterRouteCommand_4.
-
-
-# *** TC_DepartCommand_3
-
-# - Failure :: Message "Invalid value for route given" is shown instead of the message "Route R_X does not exist"
-# - Fault :: Actually, the observed output is correct and it is the test case that was specified wrongly
-# - Fix :: Update the test case so that the expected output is a console message "Route R_X does not exist" and the title states "fails for not existing route"
-
-# *** TC_BuyCommand_3
-
-# - Failure :: Instead of showing an error message saying the tickets are sold out a =TypeError= is thrown because it is tried to access the property =id= of undefined
-# - Fault :: After checking if the purchase of a =Ticket= was unsuccessful a return statement is missing
-#            [[file:./Iteration3.rtfd/Pasted Graphic 9.tiff.png]]
-# - Fix :: Add the return statement in the case of an unsuccessful purchase attempt
-#          [[file:./Iteration3.rtfd/Pasted Graphic 16.tiff.png]]
-
-# *** TC_CheckinCommand_2
-
-# - Failure :: In addition to the "Invalid number of arguments given" error message "Ticket with id null does exist" is shown
-# - Fault :: After parsing the =ticketId= from the arguments it is not checked whether the "ticketId" is null in order to return
-#            [[file:./Iteration3.rtfd/Pasted Graphic 10.tiff.png]]
-# - Fix :: Added the missing =null= check and return statement before proceeding with finding the =Route= with the =ticketId=
-
-# *** TC_CheckinCommand_3
-
-# The same failure and fault as in TC_CheckinCommand_2. Is fixed the same way.
-
-# *** TC_CheckinCommand_5
-
-# - Failure :: Instead of showing the expected error message saying that the ticket is already boarded a =TypeError= is thrown
-# - Fault :: After checking if the checkin of the =Ticket= was unsuccessful a return statement is missing
-#          [[file:./Iteration3.rtfd/Pasted Graphic 11.tiff.png]]
-# - Fix :: Added the return statement in the cases of an unsuccessful checkin attempt
-
-# *** TC_CancelCommand_2
-
-# - Failure :: In addition to the expected "Invalid number of arguments given" error message the message "Ticket with id null does not exist" is shown
-# - Fault :: After parsing the =ticketId= from the arguments it is not checked whether the "ticketId" is null in order to return
-#            [[file:./Iteration3.rtfd/Pasted Graphic 12.tiff.png]]
-# - Fix :: Added the missing =null= check and return statement before proceeding with finding the =Route= with the =ticketId=
-
-# *** TC_CancelCommand_3
-
-# The same failure and fault as in TC_CancelCommand_2. Is fixed the same way.
-
-# *** TC_CancelCommand_5
-
-# - Failure :: After showing the expected unable to cancel ticket message the message for successfully canceled the ticket is shown
-# - Fault :: After checking if the cancelation of the =Ticket= was unsuccessful a return statement is missing
-#          [[file:./Iteration3.rtfd/Pasted Graphic 13.tiff.png]]
-# - Fix :: Added the return statement in the cases of an unsuccessful cancel attempt
-
 * Iteration 2
 
 ** Specify Test Cases
 
-*** IBBBCommand based classes
+*** Class Route (Identified to be missing in last iteration)
+
+- TC_Route_26 ::    fromObject fails on invalid object
+  - Goal ::       Test that the =fromObject()= method throws an error if an invalid object representation is passed
+  - Class ::      Route
+  - Method ::     fromObject
+  - Precondition ::   N/A
+  - Input ::      { id_X: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
+  - Expected Output ::  Error(‘Invalid object’)
+  - Note ::       The date set for departed is an example
+
+- TC_Route_27 ::    fromObject fails on invalid departure time
+  - Goal ::       Test that the =fromObject()= method throws an error if departed is set to an invalid value
+  - Class ::      Route
+  - Method ::     fromObject
+  - Precondition ::   N/A
+  - Input ::      { id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: “4711”, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
+  - Expected Output ::  Error(‘Invalid departed time’)
+
+*** IBBBCommand
 
 - TC_RegisterRouteCommand_1 ::  returns correct id
   - Goal ::             Test that the =commandId= of the =RegisterRouteCommand= returns the correct value
@@ -932,8 +624,6 @@ Pasted Graphic 9.tiff ¬
   - Expected Output ::        BBB{ _routes: [] }
               Console: “Successfully deleted route R1”
 
-
-
 - TC_DepartCommand_1 ::     returns correct id
   - Goal ::             Test that the =commandId= of the "DepartCommand" returns the correct value
   - Class ::            DepartCommand
@@ -1014,8 +704,6 @@ Pasted Graphic 9.tiff ¬
               Console: “R1: available
                         R2: empty’”
 
-
-
 - TC_BuyCommand_1 ::      returns correct id
   - Goal ::             Test that the =commandId= of the "BuyCommand" returns the correct value
   - Class ::            BuyCommand
@@ -1053,8 +741,6 @@ Pasted Graphic 9.tiff ¬
   - Input ::            [“R1”]
   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9, T_R1_8], departed: null, availableSeats: [0, … , 7]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}
               Console: ‘Successfully purchased ticket T_R1_8 on route R1 from Madrid to Toledo’
-
-
 
 - TC_CheckinCommand_1 ::      returns correct id
   - Goal ::             Test that the =commandId= of the "CheckinCommand" returns the correct value
@@ -1112,7 +798,6 @@ Pasted Graphic 9.tiff ¬
   - Input ::            [“T_R1_9”]
   - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: true }
               Console: “Successfully checked in ticket T_R1_9 on route R1 from Madrid to Toledo and assigned seat 9”
-
 
 
 - TC_CancelCommand_1 ::     returns correct id
@@ -1235,28 +920,346 @@ Pasted Graphic 9.tiff ¬
   - Input ::      args: [“status”]
   - Expected Output ::  _commands[“status”].execute was called
 
+
+** Run Test Cases
+
+
 *** Class Route
 
-- TC_Route_26 ::    fromObject fails on invalid object
-  - Goal ::       Test that the =fromObject()= method throws an error if an invalid object representation is passed
-  - Class ::      Route
-  - Method ::     fromObject
-  - Precondition ::   N/A
-  - Input ::      { id_X: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
-  - Expected Output ::  Error(‘Invalid object’)
-  - Note ::       The date set for departed is an example
+- *TC_Route_26*
+  - Expected Output ::        Error(‘Invalid object’)
+  - Observed Output ::        Error(‘Invalid object’)
+  - Failure :: None
 
-- TC_Route_27 ::    fromObject fails on invalid departure time
-  - Goal ::       Test that the =fromObject()= method throws an error if departed is set to an invalid value
-  - Class ::      Route
-  - Method ::     fromObject
-  - Precondition ::   N/A
-  - Input ::      { id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: “4711”, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
-  - Expected Output ::  Error(‘Invalid departed time’)
+- *TC_Route_27*
+  - Expected Output ::        Error(‘Invalid departed time’)
+  - Observed Output ::        Route { id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: “4711-01-01T00:00:00.000Z”, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
+  - Failure :: Yes
+
+*** Class IBBBCommand
+
+- *TC_RegisterRouteCommand_1*
+  - Expected Output ::        ‘registerroute’
+  - Observed Output ::        ‘registerroute’
+  - Failure :: None
+
+- *TC_RegisterRouteCommand_2*
+  - Expected Output ::
+    BBB{ _routes: [] }\\
+    Console: ’Invalid number of arguments given’
+  - Observed Output :: BBB{ _routes: [] }\\
+    Console: ’Invalid number of arguments given’
+  - Failure :: None
+
+- *TC_RegisterRouteCommand_3*
+  - Input ::            [“ ”, “Madrid”, “Toledo”, 10]
+  - Expected Output ::        BBB{ _routes: [] }\\
+              Console: ‘Invalid value for route given’
+  - Observed Output ::        BBB{ _routes: [] }\\
+              Console: ‘Invalid value for route given’
+  - Failure :: None
+
+- *TC_RegisterRouteCommand_4*
+  - Expected Output ::  Console: ‘Invalid value for source given’
+  - Observed Output ::  TypeError(‘Cannot read property ‘trim’ of null’)
+  - Failure :: Yes
+
+- *TC_RegisterRouteCommand_5*
+  - Expected Output ::  Console: ‘Invalid value for destination given’
+  - Observed Output ::  TypeError(‘Cannot read property ‘trim’ of undefined’)
+  - Failure :: Yes
+
+- *TC_RegisterRouteCommand_6*
+  - Expected Output ::  Console: ‘Invalid value for capacity’
+  - Observed Output ::  RangeError(Invalid array length)
+  - Failure :: Yes
+
+- *TC_RegisterRouteCommand_7*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: “Created route R1 from Madrid to Toledo with 10 seats”
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: “Created route R1 from Madrid to Toledo with 10 seats”
+  - Failure :: None
+
+- *TC_DeleteRouteCommand_1*
+  - Expected Output ::        ‘deleteroute’
+  - Observed Output ::        ‘deleteroute’
+  - Failure :: None
+
+- *TC_DeleteRouteCommand_2*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
+              Console: ‘Invalid number of arguments given’
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
+              Console: ‘Invalid number of arguments given’
+  - Failure :: None
+
+- *TC_DeleteRouteCommand_3*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
+              Console: ‘Invalid value for route given’
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
+              Console: ‘Invalid value for route given’
+  - Failure :: None
+
+- *TC_DeleteRouteCommand_4*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
+              Console: “Cannot delete route R1 because there are 1 tickets booked”
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
+              Console: “Cannot delete route R1 because there are 1 tickets booked”
+  - Failure :: None
+
+- *TC_DeleteRouteCommand_5*
+  - Expected Output ::        BBB{ _routes: [] }\\
+              Console: “Successfully deleted route R1”
+  - Observed Output ::        BBB{ _routes: [] }\\
+              Console: “Successfully deleted route R1”
+  - Failure :: None
+
+- *TC_DepartCommand_1*
+  - Expected Output ::        ‘depart’
+  - Observed Output ::        ‘depart’
+  - Failure :: None
+
+- *TC_DepartCommand_2*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
+              Console: ‘Invalid number of arguments given’
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}\\
+              Console: ‘Invalid number of arguments given’
+  - Failure :: None
+
+- *TC_DepartCommand_3*
+  - Expected Output ::  Console: ‘Invalid value for route given'
+  - Observed Output ::  Console: ‘Route R_X does not exist’
+  - Failure :: Yes
+
+- *TC_DepartCommand_4*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: “2008-09-15T15:53:00”, availableSeats: [0, … , 8]}]}\\
+              Console: ‘R1 departed’
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: “2008-09-15T15:53:00”, availableSeats: [0, … , 8]}]}\\
+              Console: ‘R1 departed’
+  - Failure :: None
+
+- *TC_StatusCommand_1*
+  - Expected Output ::        ‘status’
+  - Observed Output ::        ‘status’
+  - Failure :: None
+
+- *TC_StatusCommand_2*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: ‘Invalid number of arguments given’
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: ‘Invalid number of arguments given’
+  - Failure :: None
+
+- *TC_StatusCommand_3*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: ‘Route R3 does not exist’
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: ‘Route R3 does not exist’
+  - Failure :: None
+
+- *TC_StatusCommand_4*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: ‘R2: empty’
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: ‘R2: empty’
+  - Failure :: None
+
+- *TC_StatusCommand_5*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: “R1: available
+                        R2: empty’”
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: “R1: available
+                        R2: empty’”
+  - Failure :: None
+
+- *TC_BuyCommand_1*
+  - Expected Output ::        ‘buy’
+  - Observed Output ::        ‘buy’
+  - Failure :: None
+
+- *TC_BuyCommand_2*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: ‘Route R3 does not exist’
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: ‘Route R3 does not exist’
+  - Failure :: None
+
+- *TC_BuyCommand_3*
+  - Expected Output ::  Console: ‘Sorry! You were too late! Tickets are sold out!’
+  - Observed Output ::  TypeError(Cannot read property ‘id’ of undefined)
+  - Failure :: Yes
+
+- *TC_BuyCommand_4*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9, T_R1_8], departed: null, availableSeats: [0, … , 7]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: ‘Successfully purchased ticket T_R1_8 on route R1 from Madrid to Toledo’
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9, T_R1_8], departed: null, availableSeats: [0, … , 7]}, Route{ id: “R2”, source: “Barcelona”, destination: “Valencia”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: ‘Successfully purchased ticket T_R1_8 on route R1 from Madrid to Toledo’
+  - Failure :: None
+
+- *TC_CheckinCommand_1*
+  - Expected Output ::        ‘checkin’
+  - Observed Output ::        ‘checkin’
+  - Failure :: None
+
+- *TC_CheckinCommand_2*
+  - Expected Output ::  Console: “Invalid number of arguments given”
+  - Observed Output ::  Console: “Invalid number of arguments given”
+                 “Ticket with id null does not exist”
+  - Failure :: Yes
+
+- *TC_CheckinCommand_3*
+  - Expected Output ::  Console: “Invalid value for ticket given”
+  - Observed Output ::  Console: “Invalid value for ticket given”
+                 “Ticket with id null does not exist”
+  - Failure :: Yes
+
+- *TC_CheckinCommand_4*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: false }\\
+              Console: “Ticket with id T_R1_X does not exist”
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: false }\\
+              Console: “Ticket with id T_R1_X does not exist”
+  - Failure :: None
+
+- *TC_CheckinCommand_5*
+  - Expected Output ::  Console: “Unable to checkin ticket T_R1_9: Ticket is already boarded”
+  - Observed Output ::  TypeError(Cannot read property ‘seat’ of undefined)
+  - Failure :: Yes
+
+- *TC_CheckinCommand_6*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: true }\\
+              Console: “Successfully checked in ticket T_R1_9 on route R1 from Madrid to Toledo and assigned seat 9”
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: true }\\
+              Console: “Successfully checked in ticket T_R1_9 on route R1 from Madrid to Toledo and assigned seat 9”
+  - Failure :: None
+
+- *TC_CancelCommand_1*
+  - Expected Output ::        ‘cancel’
+  - Observed Output ::        ‘cancel’
+  - Failure :: None
+
+- *TC_CancelCommand_2*
+  - Expected Output ::  Console: “Invalid number of arguments given”
+  - Observed Output ::  Console: “Invalid number of arguments given”\\
+                 Console: “Ticket with id null does not exist”
+  - Failure :: Yes
+
+- *TC_CancelCommand_3*
+  - Expected Output ::  Console: “Invalid value for ticket given”
+  - Observed Output ::  Console: “Invalid value for ticket given”\\
+       Console: “Ticket with id null does not exist”
+  - Failure :: Yes
+
+- *TC_CancelCommand_4*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: false }\\
+              Console: “Ticket with id T_R1_X does not exist”
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [T_R1_9], departed: null, availableSeats: [0, … , 8]}]}, Ticket{ id: “T_R1_9”, seat: 9, boarded: false }\\
+              Console: “Ticket with id T_R1_X does not exist”
+  - Failure :: None
+
+- *TC_CancelCommand_5*
+  - Expected Output ::  Console: “Unable to cancel ticket T_R1_9: Ticket is already boarded”
+  - Observed Output ::  Console: “Unable to cancel ticket T_R1_9: Ticket is already boarded”\\
+                 Console: “Cancelled ticket T_R1_9 on route R1 from Madrid to Toledo”
+  - Failure :: Yes
+
+- *TC_CancelCommand_6*
+  - Expected Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: “Cancelled ticket T_R1_9 on route R1 from Madrid to Toledo”
+  - Observed Output ::        BBB{ _routes: [Route{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: null, availableSeats: [0, … , 9]}]}\\
+              Console: “Cancelled ticket T_R1_9 on route R1 from Madrid to Toledo”
+  - Failure :: None
+
+
+* TODO: Missing the BBB results
 
 ** Check Coverage
 
 [[file:documentation.org.img/org_20181130_184134_VwJ8or.jpg]]
+
+** Identify Missing Tests
+
+
+** Trace failures to faults
+
+*** TC_Route_27
+
+- Failure :: Instead of throwing an error because of the invalid value for departed a =Route= is “Created
+- Fault :: Departed is not parsed enforcing ISO_8601 date format
+  [[file:./Iteration2.rtfd/Pasted Graphic 8.tiff.png]]
+- Fix :: Ensure that the parsing is done enfocring ISO_8601 date format by specifying the format in the constructor
+  [[file:./Iteration2.rtfd/Pasted Graphic 7.tiff.png]]
+
+*** TC_RegisterRouteCommand_4
+
+- Failure :: Instead of showing a meaningful error message a =TypeError= is thrown
+- Fault :: The method =trim()= is called on the first argument =args[0]= which is =null=
+  [[file:./Iteration3.rtfd/Pasted Graphic 7.tiff.png]]
+- Fix :: Ensure that =args[1]= is not null before using the =trim()= method
+  [[file:./Iteration3.rtfd/Pasted Graphic 14.tiff.png]]
+
+*** TC_RegisterRouteCommand_5
+
+The same failure and fault as in TC_RegisterRouteCommand_4 but with second argument =args[2]=. Is fixed the same way as TC_RegisterRouteCommand_4 and already shown in the previous screenshotss.
+
+*** TC_RegisterRouteCommand_6
+
+- Failure :: Instead of showing a meaninigful error message a =RangeError= is thrown in the constructor of the =Route=
+- Fault :: The check if an invalid capacity has been given is done using the condition "capacity === NaN" but performing a "===" check on =NaN= always yields false
+- Fix :: Use the method =isNaN()= for checking for an invalid capacity
+The fault in fix is also shown in the screenshots from TC_RegisterRouteCommand_4.
+
+
+*** TC_DepartCommand_3
+
+- Failure :: Message "Invalid value for route given" is shown instead of the message "Route R_X does not exist"
+- Fault :: Actually, the observed output is correct and it is the test case that was specified wrongly
+- Fix :: Update the test case so that the expected output is a console message "Route R_X does not exist" and the title states "fails for not existing route"
+
+*** TC_BuyCommand_3
+
+- Failure :: Instead of showing an error message saying the tickets are sold out a =TypeError= is thrown because it is tried to access the property =id= of undefined
+- Fault :: After checking if the purchase of a =Ticket= was unsuccessful a return statement is missing
+           [[file:./Iteration3.rtfd/Pasted Graphic 9.tiff.png]]
+- Fix :: Add the return statement in the case of an unsuccessful purchase attempt
+         [[file:./Iteration3.rtfd/Pasted Graphic 16.tiff.png]]
+
+*** TC_CheckinCommand_2
+
+- Failure :: In addition to the "Invalid number of arguments given" error message "Ticket with id null does exist" is shown
+- Fault :: After parsing the =ticketId= from the arguments it is not checked whether the "ticketId" is null in order to return
+           [[file:./Iteration3.rtfd/Pasted Graphic 10.tiff.png]]
+- Fix :: Added the missing =null= check and return statement before proceeding with finding the =Route= with the =ticketId=
+
+*** TC_CheckinCommand_3
+
+The same failure and fault as in TC_CheckinCommand_2. Is fixed the same way.
+
+*** TC_CheckinCommand_5
+
+- Failure :: Instead of showing the expected error message saying that the ticket is already boarded a =TypeError= is thrown
+- Fault :: After checking if the checkin of the =Ticket= was unsuccessful a return statement is missing
+         [[file:./Iteration3.rtfd/Pasted Graphic 11.tiff.png]]
+- Fix :: Added the return statement in the cases of an unsuccessful checkin attempt
+
+*** TC_CancelCommand_2
+
+- Failure :: In addition to the expected "Invalid number of arguments given" error message the message "Ticket with id null does not exist" is shown
+- Fault :: After parsing the =ticketId= from the arguments it is not checked whether the "ticketId" is null in order to return
+           [[file:./Iteration3.rtfd/Pasted Graphic 12.tiff.png]]
+- Fix :: Added the missing =null= check and return statement before proceeding with finding the =Route= with the =ticketId=
+
+*** TC_CancelCommand_3
+
+The same failure and fault as in TC_CancelCommand_2. Is fixed the same way.
+
+*** TC_CancelCommand_5
+
+- Failure :: After showing the expected unable to cancel ticket message the message for successfully canceled the ticket is shown
+- Fault :: After checking if the cancelation of the =Ticket= was unsuccessful a return statement is missing
+         [[file:./Iteration3.rtfd/Pasted Graphic 13.tiff.png]]
+- Fix :: Added the return statement in the cases of an unsuccessful cancel attempt
+
 
 * Iteration 3
 
