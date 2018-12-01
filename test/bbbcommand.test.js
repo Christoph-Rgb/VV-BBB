@@ -394,7 +394,7 @@ describe('IBBBCommand', () => {
             validateRoute(bbb.routes[1], initialRouteBarcelonaValencia)
         }),
 
-        it('TC_StatusCommand_3: does not print anything when specifying not existing route', () => {
+        it('TC_StatusCommand_3: fails for specifying not existing route', () => {
             //arrange
             const bbb = mockBBBWithRoutes([cloneRouteObject(routeMadridToledoWithOneTicket), cloneRouteObject(initialRouteBarcelonaValencia)])
             const cmd = new StatusCommand(bbb)
