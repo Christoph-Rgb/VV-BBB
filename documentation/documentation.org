@@ -5,30 +5,55 @@
 
 * Description of Coverage Screenshot
 
-In the screenshot of the coverage tools output a table with 6 columns
-is shown and below the amount of passed or failed test suites and how
-many of the tests out of these test suites passed and failed.
+The coverage tool shows a table with 6 columns. Each row shows a file that
+has been tested and below the table there is some additional information about
+how many passed/failed test suites and about how many tests out of these test
+suits passed/failed. Each row in the table shows coverage information of a certain
+file and includes percentage of covered statements, branches, functions and lines.
+Given any lines are still uncovered after running the tests, those lines are 
+shown in the most right column. The screenshot below shows an example of the
+coverage output where no tests have been executed.
 
-The table describes for each file the percentage of statement, branch,
-function, line coverage and gives a selection of uncovered lines if
-any.
+[[file:documentation.org.img/coverage_example.png]]
 
-The should be output should be totally green, with a 100% at "%
-Branch" for all files and all Test Suites passed.
+The goal for this assignment is to reach a value of 100% in the column ~% Branch~
+for all files without any tests failing. 
 
 * Testing approach
 
+The application is composed of four main components:
+- =Ticket=: Class that holds ticket information
+- =Route=: Class that holds route information as well as associated tickets, available seats, etc.
+- =IBBBCommand=: Interface and several implementations that each fulfill one specific funcitonality such as creating a new route, purchasing a ticket, etc.
+- =BBB=: Class that uses as the composition of overall functionality which parses the given commands and loads/stores routes from/in a file
+
 We tried to reach 100% branch coverage in the code by the use of unit
-tests. For this, all classes that we created where tested individually
-until 100% branch coverage was reached. We used the testing framework
-[[https://jestjs.io/en/][Jest]] that enabled us to run automated tests on individual files.
+tests. For this, all components that we created were tested individually
+until 100% branch coverage was reached. For every component we looked at each
+method, property or constructor to identify the branches to be tested. This allowed
+us to look at a single functionality in each test case and made it a lot easier to identify 
+all the necessary test cases for each component. We decided not to target all four components
+in the first sprint because we expected a high number of required test cases which would have made
+it a bit more unstructured and harder to understand. Instead we targeted the classes =Ticket=
+and =Route= in the first iteration. In the second iteration we added the test cases for =Ticket=
+and =Route= that we identified missing and targeted =IBBBCommand= and =BBB= as well. The third
+iteration was the last one and only included test cases that were identified to be missing
+in iteration two. 
 
-We did not find any non-reachable code but we found several faults that
-we fixed as documented below.
+We used the testing framework [[https://jestjs.io/en/][Jest]] that enabled us to run automated tests on individual files. 
+We did not find any non-reachable code but we found several faults that we fixed as described in the documented below.
 
-For space reasons we where not able to use tables as formatting.
+We also found that the document was better readable when not using tables and decided to use a list formatting for better readability.
+Some test cases required the targeted class to be in a certain state. Therefore, we added a ~Precondition~ to those test cases. For instance,
+the precondition ~Route{ id: “R1”, source: "Madrid", destination: "Toledo", ...}~ means that a =Route= instance should be initialized with the 
+stated properties in the arrangement of the test case. If no class name is stated at the beginning, it means that we are referring to a simple
+object representation or single variables instead of a class instance. A value of ~N/A~ indicates that no precondition or input is required. For
+shortening the definition of a list of =Tickets= we used values as for instance T1_R1_9 which corresponds to a =Ticket= instance on =Route= R1 
+with seat 9 which is not boarded, e.g. Ticket { id: "T1", seat: 9, boarded: false }.
 
 * Iteration 1
+
+Iteration 1 targets the classes =Ticket= and =Route=
 
 ** Specify Test Cases
 
@@ -491,12 +516,20 @@ For space reasons we where not able to use tables as formatting.
 
 [[file:./Iteration2.rtfd/Pasted Graphic 1.tiff.png]]
 
+
+Using the coverage tool we identified following lines/branches not covered (red line means the line was not executed, "I" indicates that the "if" path was never taken). 
+The test cases covering those lines will be added in iteration 2. 
+
+[[file:documentation.org.img/Iteration1_Missing_TC.png]]
+
+
+
 ** Trace failures to faults
 
 *** TC_Route_6, TC_Route_7, TC_Route_8, TC_Route_9
 
-- Failure :: The output of the =status= property of the Route class returns an =int= value instead of a meaningful =string= value
-- Fault :: The =RouteStatus= enumeration =int= representation (default behavior) instead of =string= representations
+- Failure :: The output of the =status= property of the =Route= class returns an =int= value instead of a meaningful =string= value
+- Fault :: The =RouteStatus= enumeration uses =int= representation (default behavior) instead of =string= representations
   [[file:./Iteration2.rtfd/Pasted Graphic 4.tiff.png]]
 - Fix :: Assign =string= values to =RouteStatus= enumeration:
   [[file:./Iteration2.rtfd/Pasted Graphic 5.tiff.png]]
@@ -510,6 +543,8 @@ For space reasons we where not able to use tables as formatting.
   [[file:./Iteration2.rtfd/1_Pasted Graphic 3.tiff.png]]
 
 * Iteration 2
+
+Iteration 2 first specifies the test cases that were identified missing from iteration 1. Then =IBBBCommand= and =BBB= are targeted.
 
 ** Specify Test Cases
 
