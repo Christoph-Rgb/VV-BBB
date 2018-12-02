@@ -1269,7 +1269,7 @@ Iteration 2 first specifies the test cases that were identified missing from ite
 
 ** Check Coverage
 
-[[file:documentation.org.img/Iteration2_Coverage.png]]
+[[file:documentation.org.img/Iteration2_Coverage2.png]]
 
 Using the coverage tools we checked the lines/branches that are not covered. 
 
