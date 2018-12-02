@@ -1,4 +1,4 @@
-% Created 2018-12-02 Sun 22:10
+% Created 2018-12-02 Sun 22:16
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -31,7 +31,7 @@
 
 
 \section{Testing approach}
-\label{sec:orgef4d586}
+\label{sec:org7be43ad}
 
 The application is composed of five main components:
 \begin{itemize}
@@ -60,7 +60,7 @@ We used the testing framework \href{https://jestjs.io/en/}{Jest} that enabled us
 We did not find any non-reachable code but we found several faults that we fixed as described in the documented below.
 
 \section{Description of Coverage Screenshot}
-\label{sec:org8a3ff03}
+\label{sec:orgb43730e}
 
 The coverage tool shows a table with 6 columns. Each row shows a file that
 has been tested and below the table there is some additional information about
@@ -79,7 +79,7 @@ The goal for this assignment is to reach a value of 100\% in the column \texttt{
 for all files without any tests failing. 
 
 \section{Notes}
-\label{sec:org450770b}
+\label{sec:org3de4cb7}
 
 We found that the document was better readable when not using tables and decided to use a list formatting for better readability.
 Some test cases required the targeted class to be in a certain state. Therefore, we added a \texttt{Precondition} to those test cases. For instance,
@@ -92,15 +92,15 @@ with seat 9 which is not boarded, e.g. Ticket \{ id: "T1", seat: 9, boarded: fal
 The complete source code of the tested application is shown in the attachment.
 
 \section{Iteration 1}
-\label{sec:org5a5c9ab}
+\label{sec:org5586888}
 
 Iteration 1 targets the classes \texttt{Ticket} and \texttt{Route}
 
 \subsection{Specify Test Cases}
-\label{sec:org2dd093e}
+\label{sec:org42fb0aa}
 
 \subsubsection{Class Ticket}
-\label{sec:org3094cbd}
+\label{sec:org0a3f4d6}
 
 \begin{description}
 \item[{\textbf{TC\_Ticket\_1}}] initializes correctly
@@ -175,7 +175,7 @@ Iteration 1 targets the classes \texttt{Ticket} and \texttt{Route}
 \end{description}
 
 \subsubsection{Class Route}
-\label{sec:org68dc22e}
+\label{sec:org74aad9b}
 
 \begin{description}
 \item[{\textbf{TC\_Route\_1}}] initializes correctly
@@ -443,10 +443,10 @@ Route\{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity:
 \end{description}
 
 \subsection{Run Test Cases}
-\label{sec:org5813851}
+\label{sec:org3ad1a0b}
 
 \subsubsection{Class Ticket}
-\label{sec:orge679061}
+\label{sec:orgc7613fe}
 
 \begin{itemize}
 \item \textbf{TC\_Ticket\_1}
@@ -500,7 +500,7 @@ Route\{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity:
 \end{itemize}
 
 \subsubsection{Class Route}
-\label{sec:org26a8286}
+\label{sec:org1865968}
 
 \begin{itemize}
 \item \textbf{TC\_Route\_1}
@@ -696,7 +696,7 @@ Route\{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity:
 \end{itemize}
 
 \subsection{Check Coverage}
-\label{sec:org9a7718c}
+\label{sec:org90fa7be}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{./Iteration2.rtfd/Pasted Graphic 1.tiff.png}
@@ -711,12 +711,11 @@ The test cases covering those lines will be added in iteration 2.
 \end{center}
 
 
-
 \subsection{Trace failures to faults}
-\label{sec:orga469245}
+\label{sec:orga397522}
 
 \subsubsection{TC\_Route\_6, TC\_Route\_7, TC\_Route\_8, TC\_Route\_9}
-\label{sec:org0f1baab}
+\label{sec:org7f662be}
 
 \begin{description}
 \item[{Failure}] The output of the \texttt{status} property of the \texttt{Route} class returns an \texttt{int} value instead of a meaningful \texttt{string} value
@@ -731,7 +730,7 @@ The test cases covering those lines will be added in iteration 2.
 \end{description}
 
 \subsubsection{TC\_Route\_15}
-\label{sec:org8aa68a3}
+\label{sec:org337cb0f}
 
 \begin{description}
 \item[{Failure}] When cancelling a \texttt{Ticket} the seat that is available again is not added again to the list of available seats
@@ -746,15 +745,15 @@ The test cases covering those lines will be added in iteration 2.
 \end{description}
 
 \section{Iteration 2}
-\label{sec:org78f828c}
+\label{sec:org1440b24}
 
 Iteration 2 first specifies the test cases that were identified missing from iteration 1. Then \texttt{IBBBCommand} and \texttt{BBB} are targeted.
 
 \subsection{Specify Test Cases}
-\label{sec:org66ebacc}
+\label{sec:org25bcdb5}
 
 \subsubsection{Class Route (Identified to be missing in last iteration)}
-\label{sec:orgcf7620e}
+\label{sec:orgf850004}
 
 \begin{description}
 \item[{TC\_Route\_26}] fromObject fails on invalid object
@@ -779,8 +778,8 @@ Iteration 2 first specifies the test cases that were identified missing from ite
 \end{description}
 \end{description}
 
-\subsubsection{IBBBCommand}
-\label{sec:org24c6fed}
+\subsubsection{Class IBBBCommand}
+\label{sec:org6b86719}
 
 \begin{description}
 \item[{TC\_RegisterRouteCommand\_1}] returns correct id
@@ -1219,7 +1218,7 @@ Console: “Cancelled ticket T\_R1\_9 on route R1 from Madrid to Toledo”
 \end{description}
 
 \subsubsection{Class BBB}
-\label{sec:org9198e1e}
+\label{sec:org56b7e75}
 
 \begin{description}
 \item[{TC\_BBB\_1}] successfully writes file
@@ -1300,11 +1299,10 @@ file: []
 \end{description}
 
 \subsection{Run Test Cases}
-\label{sec:orgf9768e9}
-
+\label{sec:orgcea7b3f}
 
 \subsubsection{Class Route}
-\label{sec:orgb420d7f}
+\label{sec:org22b4b12}
 
 \begin{itemize}
 \item \textbf{TC\_Route\_26}
@@ -1323,7 +1321,7 @@ file: []
 \end{itemize}
 
 \subsubsection{Class IBBBCommand}
-\label{sec:orgd6a47e6}
+\label{sec:orgc8d31f6}
 
 \begin{itemize}
 \item \textbf{TC\_RegisterRouteCommand\_1}
@@ -1633,7 +1631,7 @@ Console: “Cancelled ticket T\_R1\_9 on route R1 from Madrid to Toledo”
 \end{itemize}
 
 \subsubsection{Class BBB}
-\label{sec:org5801860}
+\label{sec:org9d7f1bb}
 
 \begin{description}
 \item[{TC\_BBB\_1}] successfully writes file
@@ -1691,7 +1689,7 @@ Console: “Cancelled ticket T\_R1\_9 on route R1 from Madrid to Toledo”
 \end{description}
 
 \subsection{Check Coverage}
-\label{sec:org1a3bacf}
+\label{sec:org191e763}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{documentation.org.img/Iteration2_Coverage.png}
@@ -1723,10 +1721,10 @@ additional test cases after fixing those three test cases.
 In the class \texttt{BBB} the setter for setting the routes is never called. Therefore, an additional test for the setter has to be created.
 
 \subsection{Trace failures to faults}
-\label{sec:org5286f74}
+\label{sec:org431be3e}
 
 \subsubsection{TC\_Route\_27}
-\label{sec:orgfec2daf}
+\label{sec:org3a15979}
 
 \begin{description}
 \item[{Failure}] Instead of throwing an error because of the invalid value for departed a new \texttt{Route} instance is created
@@ -1741,7 +1739,7 @@ In the class \texttt{BBB} the setter for setting the routes is never called. The
 \end{description}
 
 \subsubsection{TC\_RegisterRouteCommand\_4}
-\label{sec:org170d587}
+\label{sec:org485b9bf}
 
 \begin{description}
 \item[{Failure}] Instead of showing a meaningful error message a \texttt{TypeError} is thrown
@@ -1756,12 +1754,12 @@ In the class \texttt{BBB} the setter for setting the routes is never called. The
 \end{description}
 
 \subsubsection{TC\_RegisterRouteCommand\_5}
-\label{sec:orgeef8a25}
+\label{sec:orgc4a5cbf}
 
 The same failure and fault as in TC\_RegisterRouteCommand\_4 but with second argument \texttt{args[2]}. Is fixed the same way as TC\_RegisterRouteCommand\_4 and already shown in the previous screenshotss.
 
 \subsubsection{TC\_RegisterRouteCommand\_6}
-\label{sec:org8a82c9e}
+\label{sec:org4c22883}
 
 \begin{description}
 \item[{Failure}] Instead of showing a meaninigful error message a \texttt{RangeError} is thrown in the constructor of the \texttt{Route}
@@ -1770,7 +1768,7 @@ The same failure and fault as in TC\_RegisterRouteCommand\_4 but with second arg
 \end{description}
 
 \subsubsection{TC\_DepartCommand\_3}
-\label{sec:org03040a5}
+\label{sec:org3fd9eaf}
 
 \begin{description}
 \item[{Failure}] Message "Invalid value for route given" is shown instead of the message "Route R\_X does not exist"
@@ -1779,7 +1777,7 @@ The same failure and fault as in TC\_RegisterRouteCommand\_4 but with second arg
 \end{description}
 
 \subsubsection{TC\_BuyCommand\_3}
-\label{sec:org1ec771c}
+\label{sec:org5d59406}
 
 \begin{description}
 \item[{Failure}] Instead of showing an error message saying the tickets are sold out a \texttt{TypeError} is thrown because it is tried to access the property \texttt{id} of undefined
@@ -1794,7 +1792,7 @@ The same failure and fault as in TC\_RegisterRouteCommand\_4 but with second arg
 \end{description}
 
 \subsubsection{TC\_CheckinCommand\_2}
-\label{sec:org0317712}
+\label{sec:orgc930db5}
 
 \begin{description}
 \item[{Failure}] In addition to the "Invalid number of arguments given" error message "Ticket with id null does exist" is shown
@@ -1806,12 +1804,12 @@ The same failure and fault as in TC\_RegisterRouteCommand\_4 but with second arg
 \end{description}
 
 \subsubsection{TC\_CheckinCommand\_3}
-\label{sec:orge427946}
+\label{sec:org26daa80}
 
 The same failure and fault as in TC\_CheckinCommand\_2. Is fixed the same way.
 
 \subsubsection{TC\_CheckinCommand\_5}
-\label{sec:org6ecea86}
+\label{sec:org2e34fb8}
 
 \begin{description}
 \item[{Failure}] Instead of showing the expected error message saying that the ticket is already boarded a \texttt{TypeError} is thrown
@@ -1825,9 +1823,8 @@ The same failure and fault as in TC\_CheckinCommand\_2. Is fixed the same way.
 \end{center}
 \end{description}
 
-
 \subsubsection{TC\_CancelCommand\_2}
-\label{sec:org77858a5}
+\label{sec:org1c5a87e}
 
 \begin{description}
 \item[{Failure}] In addition to the expected "Invalid number of arguments given" error message the message "Ticket with id null does not exist" is shown
@@ -1842,12 +1839,12 @@ The same failure and fault as in TC\_CheckinCommand\_2. Is fixed the same way.
 \end{description}
 
 \subsubsection{TC\_CancelCommand\_3}
-\label{sec:orgf810c7c}
+\label{sec:org247bade}
 
 The same failure and fault as in TC\_CancelCommand\_2. Is fixed the same way and already shown in the previous screenshots from TC\_CancelCommand\_2.
 
 \subsubsection{TC\_CancelCommand\_5}
-\label{sec:org2f99a64}
+\label{sec:orgb71157d}
 
 \begin{description}
 \item[{Failure}] After showing the expected unable to cancel ticket message the message for successfully canceled the ticket is shown
@@ -1859,15 +1856,15 @@ The same failure and fault as in TC\_CancelCommand\_2. Is fixed the same way and
 \end{description}
 
 \section{Iteration 3}
-\label{sec:org4a35727}
+\label{sec:org40fc2ee}
 
 Iteration 3 does not target a new component and only adds test cases that are missing to get full coverage.
 
 \subsection{Specify Test Cases}
-\label{sec:org6cf0426}
+\label{sec:org5d8e024}
 
-\subsubsection{IBBBCommand Class}
-\label{sec:org079db8a}
+\subsubsection{Class IBBBCommand}
+\label{sec:org452e5f6}
 
 \begin{description}
 \item[{TC\_CancelCommand\_7}] fails when initialized with invalid bbb
@@ -1882,7 +1879,7 @@ Iteration 3 does not target a new component and only adds test cases that are mi
 \end{description}
 
 \subsubsection{BBB Class}
-\label{sec:org2ec157c}
+\label{sec:orgf03050c}
 
 \begin{description}
 \item[{TC\_BBB\_8}] set routes
@@ -1898,10 +1895,10 @@ Iteration 3 does not target a new component and only adds test cases that are mi
 \end{description}
 
 \subsection{Run Test Cases}
-\label{sec:org0ef767c}
+\label{sec:orgd2b81f1}
 
-\subsubsection{Class BBB}
-\label{sec:org653f2dd}
+\subsubsection{Class IBBBCommand}
+\label{sec:org88fdca4}
 
 \begin{description}
 \item[{TC\_CancelCommand\_7}] fails when initialized with invalid bbb
@@ -1910,7 +1907,12 @@ Iteration 3 does not target a new component and only adds test cases that are mi
 \item[{Observed Output}] Error("Invalid bbb")
 \item[{Failure}] None
 \end{description}
+\end{description}
 
+\subsubsection{Class BBB}
+\label{sec:org1543c60}
+
+\begin{description}
 \item[{TC\_BBB\_8}] set routes
 \begin{description}
 \item[{Expected Output}] routes: [\{ id: “R1”, source: “Berlin”, destination: “Toledo”, capacity: 11,  tickets: [], departed: null, availableSeats: [0, … , 9]\}]
@@ -1920,7 +1922,7 @@ Iteration 3 does not target a new component and only adds test cases that are mi
 \end{description}
 
 \subsection{Check Coverage}
-\label{sec:org8a44804}
+\label{sec:orgc57f24f}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{documentation.org.img/org_20181130_185109_LYvGqi.jpg}
