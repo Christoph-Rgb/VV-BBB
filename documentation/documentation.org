@@ -529,7 +529,6 @@ The test cases covering those lines will be added in iteration 2.
 
 [[file:documentation.org.img/Iteration1_Missing_TC.png]]
 
-
 ** Trace failures to faults
 
 *** TC_Route_6, TC_Route_7, TC_Route_8, TC_Route_9
@@ -544,8 +543,10 @@ The test cases covering those lines will be added in iteration 2.
 
 - Failure :: When cancelling a =Ticket= the seat that is available again is not added again to the list of available seats
 - Fault :: The =cancelTicket()= method misses the necessary statements that push the seat of the cancelled =Ticket= back onto the =availableSeats= list
+  #+ATTR_LATEX: :width 6cm
   [[file:./Iteration2.rtfd/Pasted Graphic 2.tiff.png]]
 - Fix :: Added the seat of the ticket to the list of available seats:
+  #+ATTR_LATEX: :width 6cm
   [[file:./Iteration2.rtfd/1_Pasted Graphic 3.tiff.png]]
 
 * Iteration 2
@@ -1295,16 +1296,20 @@ In the class =BBB= the setter for setting the routes is never called. Therefore,
 
 - Failure :: Instead of throwing an error because of the invalid value for departed a new =Route= instance is created
 - Fault :: Departed is not parsed enforcing ISO_8601 date format
+  #+ATTR_LATEX: :width 6cm
   [[file:./Iteration2.rtfd/Pasted Graphic 8.tiff.png]]
 - Fix :: Ensure that the parsing is done enfocring ISO_8601 date format by specifying the format in the constructor
+  #+ATTR_LATEX: :width 6cm
   [[file:./Iteration2.rtfd/Pasted Graphic 7.tiff.png]]
 
 *** TC_RegisterRouteCommand_4
 
 - Failure :: Instead of showing a meaningful error message a =TypeError= is thrown
 - Fault :: The method =trim()= is called on the first argument =args[0]= which is =null=
+  #+ATTR_LATEX: :width 6cm
   [[file:./Iteration3.rtfd/Pasted Graphic 7.tiff.png]]
 - Fix :: Ensure that =args[1]= is not null before using the =trim()= method
+  #+ATTR_LATEX: :width 6cm
   [[file:./Iteration3.rtfd/Pasted Graphic 14.tiff.png]]
 
 *** TC_RegisterRouteCommand_5
