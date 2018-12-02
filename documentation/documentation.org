@@ -1,7 +1,34 @@
 #+TITLE: BBB Testing Documentation
+#+AUTHOR: Group 9: Philipp Uhl, Christoph Schwägerl
 #+DATE: [2018-11-26 Mon]
 
 #+OPTIONS: ^:nil
+
+* Testing approach
+
+The application is composed of five main components:
+- =Ticket=: Class that holds ticket information
+- =Route=: Class that holds route information as well as associated tickets, available seats, etc.
+- =RouteStatus=: Enumaration that indicates the status of a =Route=
+- =IBBBCommand=: Interface and several implementations that each fulfill one specific funcitonality such as creating a new route, purchasing a ticket, etc.
+- =BBB=: Class that uses as the composition of overall functionality which parses the given commands and loads/stores routes from/in a file
+
+We tried to reach 100% branch coverage in the code by the use of unit
+tests. For this, all components that we created were tested individually
+until 100% branch coverage was reached. For every component we looked at each
+method, property or constructor to identify the branches to be tested. This allowed
+us to look at a single functionality in each test case and made it a lot easier to identify 
+all the necessary test cases for each component. We decided not to target all components
+in the first sprint because we expected a high number of required test cases which would have made
+it a bit more unstructured and harder to understand. Instead we targeted the classes =Ticket=
+and =Route= in the first iteration. In the second iteration we added the test cases for =Ticket=
+and =Route= that we identified missing and targeted =IBBBCommand= and =BBB= as well. The third
+iteration was the last one and only included test cases that were identified to be missing
+in iteration two. The =RouteStatus= enumeration is not targeted individually because this is done
+implicitly when testing the =Route= class.
+
+We used the testing framework [[https://jestjs.io/en/][Jest]] that enabled us to run automated tests on individual files. 
+We did not find any non-reachable code but we found several faults that we fixed as described in the documented below.
 
 * Description of Coverage Screenshot
 
@@ -19,37 +46,17 @@ coverage output where no tests have been executed.
 The goal for this assignment is to reach a value of 100% in the column ~% Branch~
 for all files without any tests failing. 
 
-* Testing approach
+* Notes
 
-The application is composed of four main components:
-- =Ticket=: Class that holds ticket information
-- =Route=: Class that holds route information as well as associated tickets, available seats, etc.
-- =IBBBCommand=: Interface and several implementations that each fulfill one specific funcitonality such as creating a new route, purchasing a ticket, etc.
-- =BBB=: Class that uses as the composition of overall functionality which parses the given commands and loads/stores routes from/in a file
-
-We tried to reach 100% branch coverage in the code by the use of unit
-tests. For this, all components that we created were tested individually
-until 100% branch coverage was reached. For every component we looked at each
-method, property or constructor to identify the branches to be tested. This allowed
-us to look at a single functionality in each test case and made it a lot easier to identify 
-all the necessary test cases for each component. We decided not to target all four components
-in the first sprint because we expected a high number of required test cases which would have made
-it a bit more unstructured and harder to understand. Instead we targeted the classes =Ticket=
-and =Route= in the first iteration. In the second iteration we added the test cases for =Ticket=
-and =Route= that we identified missing and targeted =IBBBCommand= and =BBB= as well. The third
-iteration was the last one and only included test cases that were identified to be missing
-in iteration two. 
-
-We used the testing framework [[https://jestjs.io/en/][Jest]] that enabled us to run automated tests on individual files. 
-We did not find any non-reachable code but we found several faults that we fixed as described in the documented below.
-
-We also found that the document was better readable when not using tables and decided to use a list formatting for better readability.
+We found that the document was better readable when not using tables and decided to use a list formatting for better readability.
 Some test cases required the targeted class to be in a certain state. Therefore, we added a ~Precondition~ to those test cases. For instance,
 the precondition ~Route{ id: “R1”, source: "Madrid", destination: "Toledo", ...}~ means that a =Route= instance should be initialized with the 
 stated properties in the arrangement of the test case. If no class name is stated at the beginning, it means that we are referring to a simple
 object representation or single variables instead of a class instance. A value of ~N/A~ indicates that no precondition or input is required. For
 shortening the definition of a list of =Tickets= we used values as for instance T1_R1_9 which corresponds to a =Ticket= instance on =Route= R1 
 with seat 9 which is not boarded, e.g. Ticket { id: "T1", seat: 9, boarded: false }.
+
+The complete source code of the tested application is shown in the attachment.
 
 * Iteration 1
 
@@ -1263,13 +1270,32 @@ Iteration 2 first specifies the test cases that were identified missing from ite
 
 ** Check Coverage
 
-[[file:documentation.org.img/org_20181130_184134_VwJ8or.jpg]]
+[[file:documentation.org.img/Iteration2_Coverage.png]]
+
+Using the coverage tools we checked the lines/branches that are not covered. 
+
+[[file:documentation.org.img/Iteration2_Constructor_Coverage.png]]
+
+For the constructor a test case is missing that tests if the initialization fails if an invalid =BBB= instance is passed.
+
+[[file:documentation.org.img/Iteration2_Register_Coverage.png]]
+
+For the =RegisterRouteCommand= the not covered lines are a result from the failing test cases. The first two if's are not covered
+because an exception is thrown in TC_RegisterRouteCommand_4 and TC_RegisterRouteCommand_5 on calling trim() on a null value. Therefore
+the test fails before going to the if. The third if is never true because of the failure detected in TC_RegisterRouteCommand_6. A 
+comparison using "===" and "NaN" is always false and therefore the if branch is never taken. Thus it is not necessary to introduce 
+additional test cases after fixing those three test cases.
+
+
+[[file:documentation.org.img/Iteration2_BBB_Coverage.png]]
+
+In the class =BBB= the setter for setting the routes is never called. Therefore, an additional test for the setter has to be created.
 
 ** Trace failures to faults
 
 *** TC_Route_27
 
-- Failure :: Instead of throwing an error because of the invalid value for departed a =Route= is “Created
+- Failure :: Instead of throwing an error because of the invalid value for departed a new =Route= instance is created
 - Fault :: Departed is not parsed enforcing ISO_8601 date format
   [[file:./Iteration2.rtfd/Pasted Graphic 8.tiff.png]]
 - Fix :: Ensure that the parsing is done enfocring ISO_8601 date format by specifying the format in the constructor
@@ -1291,8 +1317,7 @@ The same failure and fault as in TC_RegisterRouteCommand_4 but with second argum
 
 - Failure :: Instead of showing a meaninigful error message a =RangeError= is thrown in the constructor of the =Route=
 - Fault :: The check if an invalid capacity has been given is done using the condition "capacity === NaN" but performing a "===" check on =NaN= always yields false
-- Fix :: Use the method =isNaN()= for checking for an invalid capacity
-The fault in fix is also shown in the screenshots from TC_RegisterRouteCommand_4.
+- Fix :: Use the method =isNaN()= for checking for an invalid capacity (the fault and fix are also shown in the screenshots from TC_RegisterRouteCommand_4)
 
 *** TC_DepartCommand_3
 
@@ -1325,6 +1350,8 @@ The same failure and fault as in TC_CheckinCommand_2. Is fixed the same way.
 - Fault :: After checking if the checkin of the =Ticket= was unsuccessful a return statement is missing
          [[file:./Iteration3.rtfd/Pasted Graphic 11.tiff.png]]
 - Fix :: Added the return statement in the cases of an unsuccessful checkin attempt
+      [[file:documentation.org.img/TC_CheckinCommand_5.png]]
+
 
 *** TC_CancelCommand_2
 
@@ -1332,21 +1359,34 @@ The same failure and fault as in TC_CheckinCommand_2. Is fixed the same way.
 - Fault :: After parsing the =ticketId= from the arguments it is not checked whether the "ticketId" is null in order to return
            [[file:./Iteration3.rtfd/Pasted Graphic 12.tiff.png]]
 - Fix :: Added the missing =null= check and return statement before proceeding with finding the =Route= with the =ticketId=
+      [[file:documentation.org.img/TC_CancelCommand_4.png]]
 
 *** TC_CancelCommand_3
 
-The same failure and fault as in TC_CancelCommand_2. Is fixed the same way.
+The same failure and fault as in TC_CancelCommand_2. Is fixed the same way and already shown in the previous screenshots from TC_CancelCommand_2.
 
 *** TC_CancelCommand_5
 
 - Failure :: After showing the expected unable to cancel ticket message the message for successfully canceled the ticket is shown
-- Fault :: After checking if the cancelation of the =Ticket= was unsuccessful a return statement is missing
-         [[file:./Iteration3.rtfd/Pasted Graphic 13.tiff.png]]
-- Fix :: Added the return statement in the cases of an unsuccessful cancel attempt
+- Fault :: After checking if the cancelation of the =Ticket= was unsuccessful a return statement is missing (the fault is already shown in the screenshot from TC_CancelCommand_2)
+#         [[file:./Iteration3.rtfd/Pasted Graphic 13.tiff.png]]
+- Fix :: Added the return statement in the cases of an unsuccessful cancel attempt (the fix is already shown in the screenshot from TC_CancelCommand_2)
 
 * Iteration 3
 
+Iteration 3 does not target a new component and only adds test cases that are missing to get full coverage.
+
 ** Specify Test Cases
+
+*** IBBBCommand Class
+
+- TC_CancelCommand_7 ::     fails when initialized with invalid bbb
+  - Goal ::             Test that the constructor of an =IBBBCommand= fails when initialized with an invalid =BBB=
+  - Class ::            CancelCommand
+  - Method ::           constructor
+  - Precondition ::     N/A
+  - Input ::            null
+  - Expected Output ::  Error("Invalid bbb")
 
 *** BBB Class
 
@@ -1363,6 +1403,11 @@ The same failure and fault as in TC_CancelCommand_2. Is fixed the same way.
 
 *** Class BBB
 
+- TC_CancelCommand_7 ::   fails when initialized with invalid bbb
+  - Expected Output ::  Error("Invalid bbb")
+  - Observed Output ::  Error("Invalid bbb")
+  - Failure :: None
+
 - TC_BBB_8 ::   set routes
   - Expected Output ::  routes: [{ id: “R1”, source: “Berlin”, destination: “Toledo”, capacity: 11,  tickets: [], departed: null, availableSeats: [0, … , 9]}]
   - Observed Output ::  routes: [{ id: “R1”, source: “Berlin”, destination: “Toledo”, capacity: 11,  tickets: [], departed: null, availableSeats: [0, … , 9]}]
@@ -1371,3 +1416,7 @@ The same failure and fault as in TC_CancelCommand_2. Is fixed the same way.
 ** Check Coverage
 
 [[file:documentation.org.img/org_20181130_185109_LYvGqi.jpg]]
+
+We reached 100% branch coverage for all files without any tests failing. Therefore the white box assignment is completed. Since we used a unit test approach,
+we tested each component of the application individually and isolated. Even though we reached the full branch coverage which was the aim of this assignment, we 
+would usually also implement integration tests to ensure that the application works correctly when all components are used jointly. 
