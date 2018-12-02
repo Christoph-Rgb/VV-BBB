@@ -1,4 +1,4 @@
-% Created 2018-12-01 Sat 19:43
+% Created 2018-12-02 Sun 22:10
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -14,10 +14,11 @@
 \usepackage{amssymb}
 \usepackage{capt-of}
 \usepackage{hyperref}
+\author{Group 9: Philipp Uhl, Christoph Schwägerl}
 \date{\textit{[2018-11-26 Mon]}}
 \title{BBB Testing Documentation}
 \hypersetup{
- pdfauthor={},
+ pdfauthor={Group 9: Philipp Uhl, Christoph Schwägerl},
  pdftitle={BBB Testing Documentation},
  pdfkeywords={},
  pdfsubject={},
@@ -29,41 +30,77 @@
 \tableofcontents
 
 
-\section{Description of Coverage Screenshot}
-\label{sec:orgd7438ea}
-
-In the screenshot of the coverage tools output a table with 6 columns
-is shown and below the amount of passed or failed test suites and how
-many of the tests out of these test suites passed and failed.
-
-The table describes for each file the percentage of statement, branch,
-function, line coverage and gives a selection of uncovered lines if
-any.
-
-The should be output should be totally green, with a 100\% at "\%
-Branch" for all files and all Test Suites passed.
-
 \section{Testing approach}
-\label{sec:org1b30c02}
+\label{sec:orgef4d586}
+
+The application is composed of five main components:
+\begin{itemize}
+\item \texttt{Ticket}: Class that holds ticket information
+\item \texttt{Route}: Class that holds route information as well as associated tickets, available seats, etc.
+\item \texttt{RouteStatus}: Enumaration that indicates the status of a \texttt{Route}
+\item \texttt{IBBBCommand}: Interface and several implementations that each fulfill one specific funcitonality such as creating a new route, purchasing a ticket, etc.
+\item \texttt{BBB}: Class that uses as the composition of overall functionality which parses the given commands and loads/stores routes from/in a file
+\end{itemize}
 
 We tried to reach 100\% branch coverage in the code by the use of unit
-tests. For this, all classes that we created where tested individually
-until 100\% branch coverage was reached. We used the testing framework
-\href{https://jestjs.io/en/}{Jest} that enabled us to run automated tests on individual files.
+tests. For this, all components that we created were tested individually
+until 100\% branch coverage was reached. For every component we looked at each
+method, property or constructor to identify the branches to be tested. This allowed
+us to look at a single functionality in each test case and made it a lot easier to identify 
+all the necessary test cases for each component. We decided not to target all components
+in the first sprint because we expected a high number of required test cases which would have made
+it a bit more unstructured and harder to understand. Instead we targeted the classes \texttt{Ticket}
+and \texttt{Route} in the first iteration. In the second iteration we added the test cases for \texttt{Ticket}
+and \texttt{Route} that we identified missing and targeted \texttt{IBBBCommand} and \texttt{BBB} as well. The third
+iteration was the last one and only included test cases that were identified to be missing
+in iteration two. The \texttt{RouteStatus} enumeration is not targeted individually because this is done
+implicitly when testing the \texttt{Route} class.
 
-We did not find any non-reachable code but we found several faults that
-we fixed as documented below.
+We used the testing framework \href{https://jestjs.io/en/}{Jest} that enabled us to run automated tests on individual files. 
+We did not find any non-reachable code but we found several faults that we fixed as described in the documented below.
 
-For space reasons we where not able to use tables as formatting.
+\section{Description of Coverage Screenshot}
+\label{sec:org8a3ff03}
+
+The coverage tool shows a table with 6 columns. Each row shows a file that
+has been tested and below the table there is some additional information about
+how many passed/failed test suites and about how many tests out of these test
+suits passed/failed. Each row in the table shows coverage information of a certain
+file and includes percentage of covered statements, branches, functions and lines.
+Given any lines are still uncovered after running the tests, those lines are 
+shown in the most right column. The screenshot below shows an example of the
+coverage output where no tests have been executed.
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{documentation.org.img/coverage_example.png}
+\end{center}
+
+The goal for this assignment is to reach a value of 100\% in the column \texttt{\% Branch}
+for all files without any tests failing. 
+
+\section{Notes}
+\label{sec:org450770b}
+
+We found that the document was better readable when not using tables and decided to use a list formatting for better readability.
+Some test cases required the targeted class to be in a certain state. Therefore, we added a \texttt{Precondition} to those test cases. For instance,
+the precondition \texttt{Route\{ id: “R1”, source: "Madrid", destination: "Toledo", ...\}} means that a \texttt{Route} instance should be initialized with the 
+stated properties in the arrangement of the test case. If no class name is stated at the beginning, it means that we are referring to a simple
+object representation or single variables instead of a class instance. A value of \texttt{N/A} indicates that no precondition or input is required. For
+shortening the definition of a list of \texttt{Tickets} we used values as for instance T1\_R1\_9 which corresponds to a \texttt{Ticket} instance on \texttt{Route} R1 
+with seat 9 which is not boarded, e.g. Ticket \{ id: "T1", seat: 9, boarded: false \}.
+
+The complete source code of the tested application is shown in the attachment.
 
 \section{Iteration 1}
-\label{sec:org09321b1}
+\label{sec:org5a5c9ab}
+
+Iteration 1 targets the classes \texttt{Ticket} and \texttt{Route}
 
 \subsection{Specify Test Cases}
-\label{sec:orgcecfc8b}
+\label{sec:org2dd093e}
 
 \subsubsection{Class Ticket}
-\label{sec:orged4b990}
+\label{sec:org3094cbd}
 
 \begin{description}
 \item[{\textbf{TC\_Ticket\_1}}] initializes correctly
@@ -138,7 +175,7 @@ For space reasons we where not able to use tables as formatting.
 \end{description}
 
 \subsubsection{Class Route}
-\label{sec:org2fe5cb8}
+\label{sec:org68dc22e}
 
 \begin{description}
 \item[{\textbf{TC\_Route\_1}}] initializes correctly
@@ -406,10 +443,10 @@ Route\{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity:
 \end{description}
 
 \subsection{Run Test Cases}
-\label{sec:org9a9b263}
+\label{sec:org5813851}
 
 \subsubsection{Class Ticket}
-\label{sec:org83570d2}
+\label{sec:orge679061}
 
 \begin{itemize}
 \item \textbf{TC\_Ticket\_1}
@@ -463,7 +500,7 @@ Route\{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity:
 \end{itemize}
 
 \subsubsection{Class Route}
-\label{sec:orge5f87ec}
+\label{sec:org26a8286}
 
 \begin{itemize}
 \item \textbf{TC\_Route\_1}
@@ -659,21 +696,31 @@ Route\{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity:
 \end{itemize}
 
 \subsection{Check Coverage}
-\label{sec:orgeac0be9}
+\label{sec:org9a7718c}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{./Iteration2.rtfd/Pasted Graphic 1.tiff.png}
 \end{center}
 
+
+Using the coverage tool we identified following lines/branches not covered (red line means the line was not executed, "I" indicates that the "if" path was never taken). 
+The test cases covering those lines will be added in iteration 2. 
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{documentation.org.img/Iteration1_Missing_TC.png}
+\end{center}
+
+
+
 \subsection{Trace failures to faults}
-\label{sec:orgbfb647d}
+\label{sec:orga469245}
 
 \subsubsection{TC\_Route\_6, TC\_Route\_7, TC\_Route\_8, TC\_Route\_9}
-\label{sec:org62c1464}
+\label{sec:org0f1baab}
 
 \begin{description}
-\item[{Failure}] The output of the \texttt{status} property of the Route class returns an \texttt{int} value instead of a meaningful \texttt{string} value
-\item[{Fault}] The \texttt{RouteStatus} enumeration \texttt{int} representation (default behavior) instead of \texttt{string} representations
+\item[{Failure}] The output of the \texttt{status} property of the \texttt{Route} class returns an \texttt{int} value instead of a meaningful \texttt{string} value
+\item[{Fault}] The \texttt{RouteStatus} enumeration uses \texttt{int} representation (default behavior) instead of \texttt{string} representations
 \begin{center}
 \includegraphics[width=.9\linewidth]{./Iteration2.rtfd/Pasted Graphic 4.tiff.png}
 \end{center}
@@ -684,7 +731,7 @@ Route\{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity:
 \end{description}
 
 \subsubsection{TC\_Route\_15}
-\label{sec:orgb9bb2c0}
+\label{sec:org8aa68a3}
 
 \begin{description}
 \item[{Failure}] When cancelling a \texttt{Ticket} the seat that is available again is not added again to the list of available seats
@@ -699,13 +746,15 @@ Route\{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity:
 \end{description}
 
 \section{Iteration 2}
-\label{sec:orgf2199f1}
+\label{sec:org78f828c}
+
+Iteration 2 first specifies the test cases that were identified missing from iteration 1. Then \texttt{IBBBCommand} and \texttt{BBB} are targeted.
 
 \subsection{Specify Test Cases}
-\label{sec:org02d4e8d}
+\label{sec:org66ebacc}
 
 \subsubsection{Class Route (Identified to be missing in last iteration)}
-\label{sec:org33b1b0f}
+\label{sec:orgcf7620e}
 
 \begin{description}
 \item[{TC\_Route\_26}] fromObject fails on invalid object
@@ -731,7 +780,7 @@ Route\{ id: “R1”, source: “Madrid”, destination: “Toledo”, capacity:
 \end{description}
 
 \subsubsection{IBBBCommand}
-\label{sec:orgd36f0b2}
+\label{sec:org24c6fed}
 
 \begin{description}
 \item[{TC\_RegisterRouteCommand\_1}] returns correct id
@@ -1170,7 +1219,7 @@ Console: “Cancelled ticket T\_R1\_9 on route R1 from Madrid to Toledo”
 \end{description}
 
 \subsubsection{Class BBB}
-\label{sec:orgc9a913e}
+\label{sec:org9198e1e}
 
 \begin{description}
 \item[{TC\_BBB\_1}] successfully writes file
@@ -1251,11 +1300,11 @@ file: []
 \end{description}
 
 \subsection{Run Test Cases}
-\label{sec:orga804751}
+\label{sec:orgf9768e9}
 
 
 \subsubsection{Class Route}
-\label{sec:org69a4916}
+\label{sec:orgb420d7f}
 
 \begin{itemize}
 \item \textbf{TC\_Route\_26}
@@ -1274,7 +1323,7 @@ file: []
 \end{itemize}
 
 \subsubsection{Class IBBBCommand}
-\label{sec:org3512d6e}
+\label{sec:orgd6a47e6}
 
 \begin{itemize}
 \item \textbf{TC\_RegisterRouteCommand\_1}
@@ -1584,7 +1633,7 @@ Console: “Cancelled ticket T\_R1\_9 on route R1 from Madrid to Toledo”
 \end{itemize}
 
 \subsubsection{Class BBB}
-\label{sec:org3e5ef26}
+\label{sec:org5801860}
 
 \begin{description}
 \item[{TC\_BBB\_1}] successfully writes file
@@ -1642,20 +1691,45 @@ Console: “Cancelled ticket T\_R1\_9 on route R1 from Madrid to Toledo”
 \end{description}
 
 \subsection{Check Coverage}
-\label{sec:org336fa18}
+\label{sec:org1a3bacf}
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{documentation.org.img/org_20181130_184134_VwJ8or.jpg}
+\includegraphics[width=.9\linewidth]{documentation.org.img/Iteration2_Coverage.png}
 \end{center}
 
+Using the coverage tools we checked the lines/branches that are not covered. 
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{documentation.org.img/Iteration2_Constructor_Coverage.png}
+\end{center}
+
+For the constructor a test case is missing that tests if the initialization fails if an invalid \texttt{BBB} instance is passed.
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{documentation.org.img/Iteration2_Register_Coverage.png}
+\end{center}
+
+For the \texttt{RegisterRouteCommand} the not covered lines are a result from the failing test cases. The first two if's are not covered
+because an exception is thrown in TC\_RegisterRouteCommand\_4 and TC\_RegisterRouteCommand\_5 on calling trim() on a null value. Therefore
+the test fails before going to the if. The third if is never true because of the failure detected in TC\_RegisterRouteCommand\_6. A 
+comparison using \texttt{===} and "NaN" is always false and therefore the if branch is never taken. Thus it is not necessary to introduce 
+additional test cases after fixing those three test cases.
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{documentation.org.img/Iteration2_BBB_Coverage.png}
+\end{center}
+
+In the class \texttt{BBB} the setter for setting the routes is never called. Therefore, an additional test for the setter has to be created.
+
 \subsection{Trace failures to faults}
-\label{sec:org51839e8}
+\label{sec:org5286f74}
 
 \subsubsection{TC\_Route\_27}
-\label{sec:orgfa19ee7}
+\label{sec:orgfec2daf}
 
 \begin{description}
-\item[{Failure}] Instead of throwing an error because of the invalid value for departed a \texttt{Route} is “Created
+\item[{Failure}] Instead of throwing an error because of the invalid value for departed a new \texttt{Route} instance is created
 \item[{Fault}] Departed is not parsed enforcing ISO\_8601 date format
 \begin{center}
 \includegraphics[width=.9\linewidth]{./Iteration2.rtfd/Pasted Graphic 8.tiff.png}
@@ -1667,7 +1741,7 @@ Console: “Cancelled ticket T\_R1\_9 on route R1 from Madrid to Toledo”
 \end{description}
 
 \subsubsection{TC\_RegisterRouteCommand\_4}
-\label{sec:org14e40ad}
+\label{sec:org170d587}
 
 \begin{description}
 \item[{Failure}] Instead of showing a meaningful error message a \texttt{TypeError} is thrown
@@ -1682,22 +1756,21 @@ Console: “Cancelled ticket T\_R1\_9 on route R1 from Madrid to Toledo”
 \end{description}
 
 \subsubsection{TC\_RegisterRouteCommand\_5}
-\label{sec:orgad308dc}
+\label{sec:orgeef8a25}
 
 The same failure and fault as in TC\_RegisterRouteCommand\_4 but with second argument \texttt{args[2]}. Is fixed the same way as TC\_RegisterRouteCommand\_4 and already shown in the previous screenshotss.
 
 \subsubsection{TC\_RegisterRouteCommand\_6}
-\label{sec:orgf559bc0}
+\label{sec:org8a82c9e}
 
 \begin{description}
 \item[{Failure}] Instead of showing a meaninigful error message a \texttt{RangeError} is thrown in the constructor of the \texttt{Route}
-\item[{Fault}] The check if an invalid capacity has been given is done using the condition "capacity \texttt{=} NaN" but performing a "\texttt{=}" check on \texttt{NaN} always yields false
-\item[{Fix}] Use the method \texttt{isNaN()} for checking for an invalid capacity
+\item[{Fault}] The check if an invalid capacity has been given is done using the condition \texttt{capacity === NaN} but performing a \texttt{===} check on \texttt{NaN} always yields false
+\item[{Fix}] Use the method \texttt{isNaN()} for checking for an invalid capacity (the fault and fix are also shown in the screenshots from TC\_RegisterRouteCommand\_4)
 \end{description}
-The fault in fix is also shown in the screenshots from TC\_RegisterRouteCommand\_4.
 
 \subsubsection{TC\_DepartCommand\_3}
-\label{sec:org41b2d53}
+\label{sec:org03040a5}
 
 \begin{description}
 \item[{Failure}] Message "Invalid value for route given" is shown instead of the message "Route R\_X does not exist"
@@ -1706,7 +1779,7 @@ The fault in fix is also shown in the screenshots from TC\_RegisterRouteCommand\
 \end{description}
 
 \subsubsection{TC\_BuyCommand\_3}
-\label{sec:orgd272714}
+\label{sec:org1ec771c}
 
 \begin{description}
 \item[{Failure}] Instead of showing an error message saying the tickets are sold out a \texttt{TypeError} is thrown because it is tried to access the property \texttt{id} of undefined
@@ -1721,7 +1794,7 @@ The fault in fix is also shown in the screenshots from TC\_RegisterRouteCommand\
 \end{description}
 
 \subsubsection{TC\_CheckinCommand\_2}
-\label{sec:org1693e55}
+\label{sec:org0317712}
 
 \begin{description}
 \item[{Failure}] In addition to the "Invalid number of arguments given" error message "Ticket with id null does exist" is shown
@@ -1733,12 +1806,12 @@ The fault in fix is also shown in the screenshots from TC\_RegisterRouteCommand\
 \end{description}
 
 \subsubsection{TC\_CheckinCommand\_3}
-\label{sec:org7709468}
+\label{sec:orge427946}
 
 The same failure and fault as in TC\_CheckinCommand\_2. Is fixed the same way.
 
 \subsubsection{TC\_CheckinCommand\_5}
-\label{sec:orgbb84e46}
+\label{sec:org6ecea86}
 
 \begin{description}
 \item[{Failure}] Instead of showing the expected error message saying that the ticket is already boarded a \texttt{TypeError} is thrown
@@ -1747,10 +1820,14 @@ The same failure and fault as in TC\_CheckinCommand\_2. Is fixed the same way.
 \includegraphics[width=.9\linewidth]{./Iteration3.rtfd/Pasted Graphic 11.tiff.png}
 \end{center}
 \item[{Fix}] Added the return statement in the cases of an unsuccessful checkin attempt
+\begin{center}
+\includegraphics[width=.9\linewidth]{documentation.org.img/TC_CheckinCommand_5.png}
+\end{center}
 \end{description}
 
+
 \subsubsection{TC\_CancelCommand\_2}
-\label{sec:org06ffaf6}
+\label{sec:org77858a5}
 
 \begin{description}
 \item[{Failure}] In addition to the expected "Invalid number of arguments given" error message the message "Ticket with id null does not exist" is shown
@@ -1759,33 +1836,53 @@ The same failure and fault as in TC\_CheckinCommand\_2. Is fixed the same way.
 \includegraphics[width=.9\linewidth]{./Iteration3.rtfd/Pasted Graphic 12.tiff.png}
 \end{center}
 \item[{Fix}] Added the missing \texttt{null} check and return statement before proceeding with finding the \texttt{Route} with the \texttt{ticketId}
+\begin{center}
+\includegraphics[width=.9\linewidth]{documentation.org.img/TC_CancelCommand_4.png}
+\end{center}
 \end{description}
 
 \subsubsection{TC\_CancelCommand\_3}
-\label{sec:org876be42}
+\label{sec:orgf810c7c}
 
-The same failure and fault as in TC\_CancelCommand\_2. Is fixed the same way.
+The same failure and fault as in TC\_CancelCommand\_2. Is fixed the same way and already shown in the previous screenshots from TC\_CancelCommand\_2.
 
 \subsubsection{TC\_CancelCommand\_5}
-\label{sec:org53a0fd4}
+\label{sec:org2f99a64}
 
 \begin{description}
 \item[{Failure}] After showing the expected unable to cancel ticket message the message for successfully canceled the ticket is shown
-\item[{Fault}] After checking if the cancelation of the \texttt{Ticket} was unsuccessful a return statement is missing
-\begin{center}
-\includegraphics[width=.9\linewidth]{./Iteration3.rtfd/Pasted Graphic 13.tiff.png}
-\end{center}
-\item[{Fix}] Added the return statement in the cases of an unsuccessful cancel attempt
+\item[{Fault}] After checking if the cancelation of the \texttt{Ticket} was unsuccessful a return statement is missing (the fault is already shown in the screenshot from TC\_CancelCommand\_2)
+\end{description}
+
+\begin{description}
+\item[{Fix}] Added the return statement in the cases of an unsuccessful cancel attempt (the fix is already shown in the screenshot from TC\_CancelCommand\_2)
 \end{description}
 
 \section{Iteration 3}
-\label{sec:orgec744f5}
+\label{sec:org4a35727}
+
+Iteration 3 does not target a new component and only adds test cases that are missing to get full coverage.
 
 \subsection{Specify Test Cases}
-\label{sec:org9d324a5}
+\label{sec:org6cf0426}
+
+\subsubsection{IBBBCommand Class}
+\label{sec:org079db8a}
+
+\begin{description}
+\item[{TC\_CancelCommand\_7}] fails when initialized with invalid bbb
+\begin{description}
+\item[{Goal}] Test that the constructor of an \texttt{IBBBCommand} fails when initialized with an invalid \texttt{BBB}
+\item[{Class}] CancelCommand
+\item[{Method}] constructor
+\item[{Precondition}] N/A
+\item[{Input}] null
+\item[{Expected Output}] Error("Invalid bbb")
+\end{description}
+\end{description}
 
 \subsubsection{BBB Class}
-\label{sec:orgaf8a8c7}
+\label{sec:org2ec157c}
 
 \begin{description}
 \item[{TC\_BBB\_8}] set routes
@@ -1801,12 +1898,19 @@ The same failure and fault as in TC\_CancelCommand\_2. Is fixed the same way.
 \end{description}
 
 \subsection{Run Test Cases}
-\label{sec:org5629eef}
+\label{sec:org0ef767c}
 
 \subsubsection{Class BBB}
-\label{sec:orga546ba5}
+\label{sec:org653f2dd}
 
 \begin{description}
+\item[{TC\_CancelCommand\_7}] fails when initialized with invalid bbb
+\begin{description}
+\item[{Expected Output}] Error("Invalid bbb")
+\item[{Observed Output}] Error("Invalid bbb")
+\item[{Failure}] None
+\end{description}
+
 \item[{TC\_BBB\_8}] set routes
 \begin{description}
 \item[{Expected Output}] routes: [\{ id: “R1”, source: “Berlin”, destination: “Toledo”, capacity: 11,  tickets: [], departed: null, availableSeats: [0, … , 9]\}]
@@ -1816,9 +1920,13 @@ The same failure and fault as in TC\_CancelCommand\_2. Is fixed the same way.
 \end{description}
 
 \subsection{Check Coverage}
-\label{sec:org7c2e94f}
+\label{sec:org8a44804}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{documentation.org.img/org_20181130_185109_LYvGqi.jpg}
 \end{center}
+
+We reached 100\% branch coverage for all files without any tests failing. Therefore the white box assignment is completed. Since we used a unit test approach,
+we tested each component of the application individually and isolated. Even though we reached the full branch coverage which was the aim of this assignment, we 
+would usually also implement integration tests to ensure that the application works correctly when all components are used jointly. 
 \end{document}

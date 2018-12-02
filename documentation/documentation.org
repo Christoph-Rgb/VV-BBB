@@ -530,7 +530,6 @@ The test cases covering those lines will be added in iteration 2.
 [[file:documentation.org.img/Iteration1_Missing_TC.png]]
 
 
-
 ** Trace failures to faults
 
 *** TC_Route_6, TC_Route_7, TC_Route_8, TC_Route_9
@@ -574,7 +573,7 @@ Iteration 2 first specifies the test cases that were identified missing from ite
   - Input ::      { id: “R1”, source: “Madrid”, destination: “Toledo”, capacity: 10,  tickets: [], departed: “4711”, availableSeats: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
   - Expected Output ::  Error(‘Invalid departed time’)
 
-*** IBBBCommand
+*** Class IBBBCommand
 
 - TC_RegisterRouteCommand_1 ::  returns correct id
   - Goal ::             Test that the =commandId= of the =RegisterRouteCommand= returns the correct value
@@ -980,7 +979,6 @@ Iteration 2 first specifies the test cases that were identified missing from ite
 
 ** Run Test Cases
 
-
 *** Class Route
 
 - *TC_Route_26*
@@ -1283,7 +1281,7 @@ For the constructor a test case is missing that tests if the initialization fail
 For the =RegisterRouteCommand= the not covered lines are a result from the failing test cases. The first two if's are not covered
 because an exception is thrown in TC_RegisterRouteCommand_4 and TC_RegisterRouteCommand_5 on calling trim() on a null value. Therefore
 the test fails before going to the if. The third if is never true because of the failure detected in TC_RegisterRouteCommand_6. A 
-comparison using "===" and "NaN" is always false and therefore the if branch is never taken. Thus it is not necessary to introduce 
+comparison using ~===~ and "NaN" is always false and therefore the if branch is never taken. Thus it is not necessary to introduce 
 additional test cases after fixing those three test cases.
 
 
@@ -1316,7 +1314,7 @@ The same failure and fault as in TC_RegisterRouteCommand_4 but with second argum
 *** TC_RegisterRouteCommand_6
 
 - Failure :: Instead of showing a meaninigful error message a =RangeError= is thrown in the constructor of the =Route=
-- Fault :: The check if an invalid capacity has been given is done using the condition "capacity === NaN" but performing a "===" check on =NaN= always yields false
+- Fault :: The check if an invalid capacity has been given is done using the condition ~capacity === NaN~ but performing a ~===~ check on =NaN= always yields false
 - Fix :: Use the method =isNaN()= for checking for an invalid capacity (the fault and fix are also shown in the screenshots from TC_RegisterRouteCommand_4)
 
 *** TC_DepartCommand_3
@@ -1352,7 +1350,6 @@ The same failure and fault as in TC_CheckinCommand_2. Is fixed the same way.
 - Fix :: Added the return statement in the cases of an unsuccessful checkin attempt
       [[file:documentation.org.img/TC_CheckinCommand_5.png]]
 
-
 *** TC_CancelCommand_2
 
 - Failure :: In addition to the expected "Invalid number of arguments given" error message the message "Ticket with id null does not exist" is shown
@@ -1378,7 +1375,7 @@ Iteration 3 does not target a new component and only adds test cases that are mi
 
 ** Specify Test Cases
 
-*** IBBBCommand Class
+*** Class IBBBCommand
 
 - TC_CancelCommand_7 ::     fails when initialized with invalid bbb
   - Goal ::             Test that the constructor of an =IBBBCommand= fails when initialized with an invalid =BBB=
@@ -1401,12 +1398,14 @@ Iteration 3 does not target a new component and only adds test cases that are mi
 
 ** Run Test Cases
 
-*** Class BBB
+*** Class IBBBCommand
 
 - TC_CancelCommand_7 ::   fails when initialized with invalid bbb
   - Expected Output ::  Error("Invalid bbb")
   - Observed Output ::  Error("Invalid bbb")
   - Failure :: None
+
+*** Class BBB
 
 - TC_BBB_8 ::   set routes
   - Expected Output ::  routes: [{ id: “R1”, source: “Berlin”, destination: “Toledo”, capacity: 11,  tickets: [], departed: null, availableSeats: [0, … , 9]}]
