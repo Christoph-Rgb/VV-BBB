@@ -65,7 +65,7 @@ export class Route {
         } else {
             if (this._availableSeats.length === this.capacity) {
                 return RouteStatus.empty
-            } else if (this._availableSeats.length === 0) {
+            } else if (this._availableSeats.length <= 1) {
                 return RouteStatus.full
             } else {
                 return RouteStatus.available
@@ -74,10 +74,11 @@ export class Route {
     }
 
     private initializeSeats = () => {
-        this._availableSeats = new Array(this._capacity)
-        for (let i = 0; i < this._capacity; i++) {
-            this._availableSeats[i] = i
+        this._availableSeats = new Array()
+        for (let i = 1; i < this._capacity; i++) {
+            this._availableSeats.push(i)
         }
+        this._availableSeats.push(1)
     }
 
     purchaseTicket = () => {

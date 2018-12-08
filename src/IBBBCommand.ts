@@ -141,7 +141,7 @@ export class DeleteRouteCommand extends BBBCommandBase implements IBBBCommand {
             return
         }
 
-        this._bbb.routes = this._bbb.routes.filter(r => r.id !== route.id)
+        this._bbb.routes.pop()
 
         console.log(`Successfully deleted route ${route.id}`)
         return
@@ -308,7 +308,7 @@ export class CancelCommand extends BBBCommandBase implements IBBBCommand {
 
         const ticket = result.ticket
 
-        console.log(`Cancelled ticket ${ticketId} on route ${route.id} from ${route.source} to ${route.destination}`)
+        console.log(`Cancelled ticket ${ticketId} on route ${route.id} from ${route.destination} to ${route.source}`)
         return
     }
 }
