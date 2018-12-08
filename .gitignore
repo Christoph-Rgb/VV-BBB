@@ -4,3 +4,4 @@ app
 *.map
 .bbb_data
 coverage
+dist/
